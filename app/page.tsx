@@ -35,7 +35,22 @@ export default function Home() {
             duration: 10,
             repeat: Infinity,
           }}
-          className="absolute left-[-10%] top-[-10%] h-[430px] w-[430px] rounded-full bg-fuchsia-500 blur-[140px]"
+          className="
+            absolute
+            left-[-35%]
+            top-[-20%]
+            h-[260px]
+            w-[260px]
+            rounded-full
+            bg-fuchsia-500
+            blur-[100px]
+
+            md:left-[-10%]
+            md:top-[-10%]
+            md:h-[430px]
+            md:w-[430px]
+            md:blur-[140px]
+          "
         />
 
         {/* RIGHT GLOW */}
@@ -48,7 +63,22 @@ export default function Home() {
             duration: 14,
             repeat: Infinity,
           }}
-          className="absolute bottom-[-20%] right-[-10%] h-[520px] w-[520px] rounded-full bg-cyan-400 blur-[160px]"
+          className="
+            absolute
+            bottom-[-25%]
+            right-[-35%]
+            h-[300px]
+            w-[300px]
+            rounded-full
+            bg-cyan-400
+            blur-[110px]
+
+            md:bottom-[-20%]
+            md:right-[-10%]
+            md:h-[520px]
+            md:w-[520px]
+            md:blur-[160px]
+          "
         />
 
         {/* STARFIELD */}
@@ -147,7 +177,7 @@ export default function Home() {
           </div>
 
           {/* MENU */}
-          <nav className="mx-auto flex gap-7 text-[11px] uppercase tracking-[0.28em]">
+          <nav className="mx-auto hidden gap-7 text-[11px] uppercase tracking-[0.28em] md:flex">
 
             <a href="#hero" className="transition hover:text-fuchsia-400">
               Inicio
@@ -186,7 +216,17 @@ export default function Home() {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute h-[650px] w-[650px] rounded-full border border-fuchsia-500/10"
+          className="
+            absolute
+            h-[320px]
+            w-[320px]
+            rounded-full
+            border
+            border-fuchsia-500/10
+
+            md:h-[650px]
+            md:w-[650px]
+          "
         />
 
         <motion.div
@@ -350,7 +390,17 @@ export default function Home() {
             repeat: Infinity,
             ease: "linear",
           }}
-          className="absolute h-[760px] w-[760px] rounded-full border border-cyan-400/10"
+          className="
+            absolute
+            h-[360px]
+            w-[360px]
+            rounded-full
+            border
+            border-cyan-400/10
+
+            md:h-[760px]
+            md:w-[760px]
+          "
         />
 
         <motion.div
