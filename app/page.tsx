@@ -1,31 +1,171 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+const fadeSection = {
+  initial: {
+    opacity: 0,
+    y: 120,
+    scale: 0.96,
+    filter: "blur(20px)",
+  },
+
+  whileInView: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: "blur(0px)",
+  },
+};
+
 export default function Home() {
   return (
-    <main className="overflow-hidden bg-black text-white">
+    <main className="h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden bg-black text-white scroll-smooth">
+
+      {/* BACKGROUND */}
+      <div className="fixed inset-0 z-0 overflow-hidden bg-black">
+
+        {/* LEFT GLOW */}
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.25, 0.45, 0.25],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+          }}
+          className="absolute left-[-10%] top-[-10%] h-[700px] w-[700px] rounded-full bg-fuchsia-500 blur-[180px]"
+        />
+
+        {/* RIGHT GLOW */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+          }}
+          className="absolute bottom-[-20%] right-[-10%] h-[800px] w-[800px] rounded-full bg-cyan-400 blur-[220px]"
+        />
+
+        {/* STARFIELD */}
+        <div className="absolute inset-0 overflow-hidden">
+
+          {/* WHITE STARS */}
+          <motion.div
+            animate={{
+              y: ["0%", "-50%"],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute inset-[-100%]"
+          >
+
+            <div
+              className="absolute inset-0 opacity-40"
+              style={{
+                backgroundImage:
+                  "radial-gradient(white 1.2px, transparent 1.2px)",
+                backgroundSize: "80px 80px",
+                backgroundRepeat: "repeat",
+              }}
+            />
+
+            <div
+              className="absolute top-full h-full w-full opacity-40"
+              style={{
+                backgroundImage:
+                  "radial-gradient(white 1.2px, transparent 1.2px)",
+                backgroundSize: "80px 80px",
+                backgroundRepeat: "repeat",
+              }}
+            />
+
+          </motion.div>
+
+          {/* CYAN STARS */}
+          <motion.div
+            animate={{
+              y: ["0%", "-50%"],
+            }}
+            transition={{
+              duration: 35,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute inset-[-100%]"
+          >
+
+            <div
+              className="absolute inset-0 opacity-20"
+              style={{
+                backgroundImage:
+                  "radial-gradient(cyan 1.2px, transparent 1.2px)",
+                backgroundSize: "160px 160px",
+                backgroundRepeat: "repeat",
+              }}
+            />
+
+            <div
+              className="absolute top-full h-full w-full opacity-20"
+              style={{
+                backgroundImage:
+                  "radial-gradient(cyan 1.2px, transparent 1.2px)",
+                backgroundSize: "160px 160px",
+                backgroundRepeat: "repeat",
+              }}
+            />
+
+          </motion.div>
+
+        </div>
+
+      </div>
 
       {/* NAVBAR */}
-      <header className="fixed top-0 z-50 w-full border-b border-fuchsia-500/20 bg-black/40 backdrop-blur-xl">
+      <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-2xl">
 
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+        <div className="relative mx-auto flex max-w-7xl items-center px-6 py-5">
 
-          <h1 className="text-2xl font-black uppercase tracking-[0.3em] text-fuchsia-400">
-            NEON TEMPLE
-          </h1>
+          {/* LOGO */}
+          <div className="absolute left-6">
 
-          <nav className="hidden gap-8 text-sm uppercase tracking-[0.3em] md:flex">
+            <h1 className="text-sm font-black uppercase tracking-[0.35em] drop-shadow-[0_0_15px_rgba(255,0,255,0.8)]">
 
-            <a href="#" className="transition hover:text-fuchsia-400">
+  <span className="text-fuchsia-400">
+    VAPORWAVE
+  </span>{" "}
+
+  <span className="text-cyan-300">
+    STUDIO
+  </span>
+
+</h1>
+
+          </div>
+
+          {/* MENU */}
+          <nav className="mx-auto flex gap-10 text-sm uppercase tracking-[0.3em]">
+
+            <a href="#hero" className="transition hover:text-fuchsia-400">
               Inicio
             </a>
 
-            <a href="#" className="transition hover:text-cyan-400">
-              Proyectos
+            <a href="#services" className="transition hover:text-cyan-400">
+              Servicios
             </a>
 
-            <a href="#" className="transition hover:text-pink-400">
-              Estudio
+            <a href="#showcase" className="transition hover:text-pink-400">
+              Estética
             </a>
 
-            <a href="#" className="transition hover:text-violet-400">
+            <a href="#contact" className="transition hover:text-violet-400">
               Contacto
             </a>
 
@@ -35,224 +175,307 @@ export default function Home() {
       </header>
 
       {/* HERO */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 text-center">
+      <section
+        id="hero"
+        className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-6 text-center"
+      >
 
-        {/* BACKGROUND */}
-        <div className="absolute inset-0">
+        {/* BIG ROTATING CIRCLE */}
+        <motion.div
+          animate={{
+            rotate: [0, 360],
+          }}
+          transition={{
+            duration: 80,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute h-[1000px] w-[1000px] rounded-full border border-fuchsia-500/10"
+        />
 
-          <img
-            src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=2070&auto=format&fit=crop"
-            alt="Background"
-            className="h-full w-full object-cover opacity-20"
-          />
+        <motion.div
+          variants={fadeSection}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ amount: 0.5 }}
+          transition={{
+            duration: 1.4,
+            ease: "easeOut",
+          }}
+          className="relative z-10 mx-auto flex max-w-4xl flex-col items-center justify-center text-center"
+        >
 
-          <div className="absolute inset-0 bg-gradient-to-b from-fuchsia-900/40 via-black to-cyan-900/40" />
-
-        </div>
-
-        {/* GRID */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,0,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,255,0.08)_1px,transparent_1px)] bg-[size:80px_80px]" />
-
-        {/* CONTENT */}
-        <div className="relative z-10 mx-auto max-w-6xl">
-
-          <p className="mb-6 text-sm uppercase tracking-[0.6em] text-cyan-300">
-            Creative Digital Studio
+          <p className="mb-6 text-sm uppercase tracking-[0.7em] text-cyan-300">
+            Estudio Creativo Digital
           </p>
 
-          <h2 className="mb-8 text-6xl font-black uppercase leading-none md:text-[9rem]">
+          <h1 className="mb-8 text-6xl font-black uppercase leading-none md:text-[9rem]">
 
-            <span className="block text-fuchsia-500 drop-shadow-[0_0_25px_rgba(255,0,255,0.9)]">
-              FUTURE
+            <span className="block text-fuchsia-400 drop-shadow-[0_0_40px_rgba(255,0,255,1)]">
+              VAPORWAVE
             </span>
 
-            <span className="block text-cyan-400 drop-shadow-[0_0_25px_rgba(0,255,255,0.9)]">
-              VISIONS
+            <span className="block text-cyan-300 drop-shadow-[0_0_40px_rgba(0,255,255,1)]">
+              STUDIO
             </span>
 
-          </h2>
+          </h1>
 
-          <p className="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-gray-300 md:text-2xl">
-            Diseño web, branding y experiencias digitales con estética
-            vaporwave, retro futurista y maximalismo visual.
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl">
+            Creamos sitios web con identidad cinematográfica, branding visual
+            de alto impacto y experiencias digitales pensadas para destacar
+            en un mundo saturado de contenido genérico.
           </p>
 
-          <div className="flex flex-col items-center justify-center gap-5 sm:flex-row">
-
-            <button className="rounded-full border border-fuchsia-500 bg-fuchsia-500/20 px-10 py-5 text-sm font-bold uppercase tracking-[0.3em] text-fuchsia-300 backdrop-blur-md transition hover:scale-105 hover:bg-fuchsia-500/30">
-
-              Ver proyectos
-
-            </button>
-
-            <button className="rounded-full border border-cyan-400 bg-cyan-400/10 px-10 py-5 text-sm font-bold uppercase tracking-[0.3em] text-cyan-300 backdrop-blur-md transition hover:scale-105 hover:bg-cyan-400/20">
-
-              Contacto
-
-            </button>
-
-          </div>
-
-        </div>
+        </motion.div>
 
       </section>
 
       {/* SERVICES */}
-      <section className="relative px-6 py-32">
+      <section
+        id="services"
+        className="relative flex min-h-screen snap-start items-center justify-center px-6 py-32"
+      >
 
-        <div className="mx-auto max-w-7xl">
+        <motion.div
+          variants={fadeSection}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ amount: 0.3 }}
+          transition={{
+            duration: 1.4,
+            ease: "easeOut",
+          }}
+          className="relative z-10 mx-auto max-w-7xl"
+        >
 
           <div className="mb-20 text-center">
 
-            <p className="mb-4 text-sm uppercase tracking-[0.4em] text-fuchsia-400">
+            <p className="mb-4 text-sm uppercase tracking-[0.4em] text-cyan-200">
               Servicios
             </p>
 
             <h2 className="text-5xl font-black uppercase md:text-7xl">
-              Diseño digital
+              Lo que hacemos
             </h2>
 
           </div>
 
           <div className="grid gap-10 md:grid-cols-3">
 
-            {/* CARD */}
-            <div className="rounded-[40px] border border-fuchsia-500/20 bg-gradient-to-b from-fuchsia-500/10 to-black p-10 backdrop-blur-xl">
+            {[
+              {
+                title: "Diseño Web",
+                text:
+                  "Sitios modernos, rápidos y totalmente personalizados para marcas, estudios, negocios y proyectos creativos.",
+              },
 
-              <div className="mb-8 text-5xl">
-                ✦
-              </div>
+              {
+                title: "Branding",
+                text:
+                  "Creamos identidad visual, dirección estética, logos y sistemas visuales coherentes para posicionar tu marca.",
+              },
 
-              <h3 className="mb-6 text-3xl font-bold uppercase text-fuchsia-400">
-                Web Design
-              </h3>
+              {
+                title: "Dirección Creativa",
+                text:
+                  "Desarrollamos conceptos visuales únicos con foco en impacto visual, narrativa y diferenciación estética.",
+              },
+            ].map((item, i) => (
 
-              <p className="text-lg leading-relaxed text-gray-300">
-                Sitios modernos, visuales e inmersivos diseñados para destacar.
-              </p>
+              <motion.div
+                key={item.title}
+                initial={{
+                  opacity: 0,
+                  y: 100,
+                  filter: "blur(20px)",
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                }}
+                viewport={{ amount: 0.5 }}
+                transition={{
+                  duration: 1,
+                  delay: i * 0.2,
+                }}
 
-            </div>
+                whileHover={{
+                  scale: 1.06,
+                  y: -14,
+                  transition: {
+                    duration: 0.11,
+                    ease: "easeOut",
+                  },
+                }}
 
-            {/* CARD */}
-            <div className="rounded-[40px] border border-cyan-400/20 bg-gradient-to-b from-cyan-400/10 to-black p-10 backdrop-blur-xl">
+                className="
+                  rounded-[40px]
+                  border
+                  border-white/10
+                  bg-white/10
+                  p-10
+                  backdrop-blur-2xl
+                  transition-transform
+                  duration-110
+                "
+              >
 
-              <div className="mb-8 text-5xl">
-                ◉
-              </div>
+                <div className="mb-8 text-5xl text-fuchsia-300">
+                  ✦
+                </div>
 
-              <h3 className="mb-6 text-3xl font-bold uppercase text-cyan-300">
-                Branding
-              </h3>
+                <h3 className="mb-6 text-3xl font-bold uppercase">
+                  {item.title}
+                </h3>
 
-              <p className="text-lg leading-relaxed text-gray-300">
-                Identidades visuales memorables con estética futurista y artística.
-              </p>
+                <p className="text-lg leading-relaxed text-white/80">
+                  {item.text}
+                </p>
 
-            </div>
+              </motion.div>
 
-            {/* CARD */}
-            <div className="rounded-[40px] border border-violet-500/20 bg-gradient-to-b from-violet-500/10 to-black p-10 backdrop-blur-xl">
-
-              <div className="mb-8 text-5xl">
-                △
-              </div>
-
-              <h3 className="mb-6 text-3xl font-bold uppercase text-violet-300">
-                Creative Direction
-              </h3>
-
-              <p className="text-lg leading-relaxed text-gray-300">
-                Conceptos visuales impactantes para marcas que buscan diferenciarse.
-              </p>
-
-            </div>
+            ))}
 
           </div>
-        </div>
+
+        </motion.div>
+
       </section>
 
       {/* SHOWCASE */}
-      <section className="relative overflow-hidden px-6 py-32">
+      <section
+        id="showcase"
+        className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-6 py-32"
+      >
 
-        <div className="absolute -left-20 top-20 h-[400px] w-[400px] rounded-full bg-fuchsia-600/20 blur-[120px]" />
+        <motion.div
+          animate={{
+            rotate: [0, -360],
+          }}
+          transition={{
+            duration: 120,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute h-[1200px] w-[1200px] rounded-full border border-cyan-400/10"
+        />
 
-        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-cyan-500/20 blur-[120px]" />
+        <motion.div
+          variants={fadeSection}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ amount: 0.5 }}
+          transition={{
+            duration: 1.5,
+          }}
+          className="relative z-10 text-center"
+        >
 
-        <div className="mx-auto max-w-7xl">
+          <p className="mb-4 text-sm uppercase tracking-[0.4em] text-cyan-300">
+            Filosofía Visual
+          </p>
 
-          <div className="mb-20 text-center">
+          <h2 className="mb-10 text-6xl font-black uppercase md:text-8xl">
 
-            <p className="mb-4 text-sm uppercase tracking-[0.4em] text-cyan-300">
+            <span className="text-fuchsia-400">
               Estética
-            </p>
+            </span>{" "}
 
-            <h2 className="text-5xl font-black uppercase md:text-7xl">
-              Vaporwave Culture
-            </h2>
+            <span className="text-cyan-300">
+              Experimental
+            </span>
 
-          </div>
+          </h2>
 
-          <div className="grid gap-10 md:grid-cols-2">
+          <p className="mx-auto max-w-4xl text-xl leading-relaxed text-white/70">
+            Nuestro enfoque mezcla tecnología, diseño contemporáneo,
+            referencias retrofuturistas y una dirección visual inspirada en el
+            cine, la música electrónica y las experiencias inmersivas.
+          </p>
 
-            <img
-              src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1974&auto=format&fit=crop"
-              alt="Palm"
-              className="rounded-[40px] border border-white/10 object-cover shadow-[0_0_60px_rgba(255,0,255,0.15)]"
-            />
+        </motion.div>
 
-            <img
-              src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1974&auto=format&fit=crop"
-              alt="Greek"
-              className="rounded-[40px] border border-white/10 object-cover shadow-[0_0_60px_rgba(0,255,255,0.15)]"
-            />
-
-          </div>
-
-        </div>
       </section>
 
-      {/* CTA */}
-      <section className="px-6 py-40">
+      {/* CONTACT */}
+      <section
+        id="contact"
+        className="relative flex min-h-screen snap-start items-center justify-center px-6 py-32"
+      >
 
-        <div className="mx-auto max-w-5xl rounded-[50px] border border-fuchsia-500/20 bg-gradient-to-b from-fuchsia-500/10 to-black px-10 py-24 text-center backdrop-blur-2xl">
+        <motion.div
+          variants={fadeSection}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ amount: 0.5 }}
+          transition={{
+            duration: 1.5,
+          }}
+          className="relative z-10 mx-auto max-w-5xl rounded-[50px] border border-white/10 bg-white/10 px-10 py-24 text-center backdrop-blur-2xl"
+        >
 
           <p className="mb-4 text-sm uppercase tracking-[0.4em] text-fuchsia-300">
             Contacto
           </p>
 
-          <h2 className="mb-8 text-5xl font-black uppercase leading-tight md:text-7xl">
+          <h2 className="mb-8 text-6xl font-black uppercase md:text-8xl">
 
             <span className="text-fuchsia-400">
-              Build
-            </span>
-
-            {" "}
+              Creamos
+            </span>{" "}
 
             <span className="text-cyan-300">
-              The Future
+              Algo Único
             </span>
 
           </h2>
 
-          <p className="mx-auto mb-12 max-w-2xl text-xl leading-relaxed text-gray-300">
-            Creamos experiencias digitales con impacto visual extremo y estética futurista.
+          <p className="mx-auto mb-12 max-w-3xl text-xl text-white/80">
+            Si quieres una presencia digital con personalidad, identidad visual
+            fuerte y una estética realmente memorable, estamos listos para
+            construirla contigo.
           </p>
 
-          <button className="rounded-full bg-gradient-to-r from-fuchsia-500 to-cyan-400 px-12 py-5 text-sm font-black uppercase tracking-[0.3em] text-black transition hover:scale-105">
+          <motion.button
+            whileHover={{
+              scale: 1.08,
 
-            Empezar proyecto
+              boxShadow:
+                `
+                -8px 0 28px rgba(255,0,255,0.65),
+                8px 0 28px rgba(0,255,255,0.65),
+                0 0 45px rgba(180,0,255,0.35)
+                `,
+            }}
 
-          </button>
+            transition={{
+              duration: 0.11,
+              ease: "easeOut",
+            }}
 
-        </div>
+            className="
+              rounded-full
+              bg-gradient-to-r
+              from-fuchsia-500
+              via-violet-400
+              to-cyan-400
+              px-12
+              py-5
+              text-sm
+              font-black
+              uppercase
+              tracking-[0.3em]
+              text-black
+            "
+          >
+            Empezar Proyecto
+          </motion.button>
+
+        </motion.div>
+
       </section>
-
-      {/* FOOTER */}
-      <footer className="border-t border-white/10 px-6 py-10 text-center text-sm uppercase tracking-[0.3em] text-gray-500">
-
-        Neon Temple Studio © 2026
-
-      </footer>
 
     </main>
   );
