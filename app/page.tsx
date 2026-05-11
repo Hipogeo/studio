@@ -122,15 +122,15 @@ export default function Home() {
         <div className="relative mx-auto flex max-w-5xl items-center px-5 py-3">
 
           {/* LOGO S9 */}
-          <div className="absolute left-5 flex items-center">
-            <Image
-              src="/logo-s9.png"
-              alt="Studio Nine Logo"
-              width={48}
-              height={48}
-              className="object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.7)]"
-            />
-          </div>
+<div className="absolute left-5 flex items-center">
+  <Image
+    src="/logo-chico.png"
+    alt="Studio Nine Logo"
+    width={48}
+    height={48}
+    className="object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.7)]"
+  />
+</div>
 
           {/* MENU */}
           <nav className="mx-auto hidden gap-7 text-[11px] uppercase tracking-[0.28em] md:flex">
@@ -183,7 +183,7 @@ export default function Home() {
             transition={{ duration: 1.3, ease: "easeOut" }}
           >
             <Image
-              src="/logo grande 1.png"
+              src="/logo grande 3.png"
               alt="Studio Nine Logo Grande"
               width={420}
               height={420}
