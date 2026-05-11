@@ -122,15 +122,15 @@ export default function Home() {
         <div className="relative mx-auto flex max-w-5xl items-center px-5 py-3">
 
           {/* LOGO S9 */}
-<div className="absolute left-5 flex items-center">
-  <Image
-    src="/logo-chico.png"
-    alt="Studio Nine Logo"
-    width={48}
-    height={48}
-    className="object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.7)]"
-  />
-</div>
+          <div className="absolute left-5 flex items-center">
+            <Image
+              src="/logo-chico.png"
+              alt="Studio Nine Logo"
+              width={48}
+              height={48}
+              className="object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.7)]"
+            />
+          </div>
 
           {/* MENU */}
           <nav className="mx-auto hidden gap-7 text-[11px] uppercase tracking-[0.28em] md:flex">
@@ -149,17 +149,41 @@ export default function Home() {
         className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-5 text-center"
       >
 
-        {/* CIRCLE */}
-        <motion.div
-          animate={{ rotate: [0, 360] }}
-          transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-          className="
-            absolute
-            h-[320px] w-[320px]
-            rounded-full border border-pink-500/10
-            md:h-[650px] md:w-[650px]
-          "
-        />
+        {/* LIQUID NEON RING */}
+        <div className="absolute flex items-center justify-center">
+          <motion.div
+            animate={{ rotate: [0, 360] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            className="
+              h-[340px] w-[340px]
+              rounded-full
+              md:h-[680px] md:w-[680px]
+            "
+            style={{
+              background: "conic-gradient(from 0deg, #ec4899, #8b5cf6, #3b82f6, #ec4899)",
+              mask: "radial-gradient(circle, transparent 69%, black 70%)",
+              WebkitMask: "radial-gradient(circle, transparent 69%, black 70%)",
+            }}
+          />
+          
+          {/* OUTER GLOW FOR THE RING */}
+          <motion.div
+            animate={{ rotate: [0, 360], scale: [1, 1.03, 1] }}
+            transition={{ 
+              rotate: { duration: 6, repeat: Infinity, ease: "linear" },
+              scale: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="
+              absolute
+              h-[340px] w-[340px]
+              rounded-full opacity-30 blur-2xl
+              md:h-[680px] md:w-[680px]
+            "
+            style={{
+              background: "conic-gradient(from 0deg, #ec4899, #8b5cf6, #3b82f6, #ec4899)",
+            }}
+          />
+        </div>
 
         <motion.div
           variants={fadeSection}
@@ -174,7 +198,7 @@ export default function Home() {
             Estudio Creativo Digital
           </p>
 
-          {/* LOGO GRANDE CON MISMA ANIMACIÓN */}
+          {/* LOGO GRANDE */}
           <motion.div
             variants={fadeSection}
             initial="initial"
@@ -326,12 +350,143 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* PORTFOLIO CAROUSEL */}
+      <section className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-5 py-24">
+        <motion.div
+          variants={fadeSection}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ amount: 0.3 }}
+          transition={{ duration: 1.2 }}
+          className="relative z-10 w-full max-w-[1600px]"
+        >
+          <div className="mb-14 text-center">
+            <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-violet-300">
+              Portfolio
+            </p>
+
+            <h2 className="text-4xl font-black uppercase md:text-7xl">
+              Últimos Trabajos
+            </h2>
+          </div>
+
+          <div className="relative px-4 md:px-16">
+            
+            <button
+              onClick={() => {
+                document
+                  .getElementById("portfolio-scroll")
+                  ?.scrollBy({ left: -420, behavior: "smooth" });
+              }}
+              className="absolute -left-2 md:-left-8 top-1/2 z-30 -translate-y-1/2 rounded-full border border-pink-500/30 bg-black/40 p-5 text-2xl text-pink-400 backdrop-blur-xl transition hover:scale-110 hover:border-pink-400 hover:shadow-[0_0_30px_rgba(236,72,153,0.8)]"
+            >
+              ‹
+            </button>
+
+            <button
+              onClick={() => {
+                document
+                  .getElementById("portfolio-scroll")
+                  ?.scrollBy({ left: 420, behavior: "smooth" });
+              }}
+              className="absolute -right-2 md:-right-8 top-1/2 z-30 -translate-y-1/2 rounded-full border border-blue-500/30 bg-black/40 p-5 text-2xl text-blue-400 backdrop-blur-xl transition hover:scale-110 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(96,165,250,0.8)]"
+            >
+              ›
+            </button>
+
+            <div
+              id="portfolio-scroll"
+              className="
+                flex
+                gap-8
+                overflow-x-auto
+                overflow-y-hidden
+                scroll-smooth
+                px-10
+                py-16
+                [-ms-overflow-style:none]
+                [scrollbar-width:none]
+                [&::-webkit-scrollbar]:hidden
+              "
+              style={{
+                maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+              }}
+            >
+              {[
+                "Neo Brand Site",
+                "Cyber Studio",
+                "Luxury UI",
+                "Vaporwave Landing",
+                "Future Commerce",
+                "Digital Identity",
+              ].map((title, i) => (
+                <motion.div
+                  key={title}
+                  whileHover={{
+                    y: -10,
+                    boxShadow:
+                      i % 2 === 0
+                        ? "0 20px 60px rgba(236,72,153,0.35)"
+                        : "0 20px 60px rgba(96,165,250,0.35)",
+                    borderColor:
+                      i % 2 === 0
+                        ? "rgba(236,72,153,0.5)"
+                        : "rgba(96,165,250,0.5)",
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="group relative min-w-[320px] rounded-[34px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-2xl"
+                >
+                  <div
+                    className={`relative mb-6 h-[180px] overflow-hidden rounded-[22px] ${
+                        i % 2 === 0
+                          ? "bg-gradient-to-br from-pink-500/40 to-blue-500/20"
+                          : "bg-gradient-to-br from-violet-500/40 to-blue-400/20"
+                      }`}
+                  >
+                    <div
+                      className="absolute inset-0 opacity-20"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
+                        backgroundSize: "22px 22px",
+                      }}
+                    />
+                    <motion.div
+                      animate={{ x: ["-100%", "200%"] }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="absolute inset-y-0 w-24 rotate-12 bg-white/10 blur-2xl"
+                    />
+                  </div>
+                  <h3 className="mb-3 text-2xl font-black uppercase leading-none tracking-tight">
+                    {title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-white/60">
+                    Diseño web / branding / experiencia digital
+                  </p>
+                  <div
+                    className={`pointer-events-none absolute inset-0 rounded-[34px] opacity-0 transition duration-300 group-hover:opacity-100 ${
+                        i % 2 === 0
+                          ? "shadow-[inset_0_0_50px_rgba(236,72,153,0.2)]"
+                          : "shadow-[inset_0_0_50px_rgba(96,165,250,0.2)]"
+                      }`}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* CONTACT */}
       <section
         id="contact"
         className="relative flex min-h-screen snap-start items-center justify-center px-5 py-20"
       >
-
         <motion.div
           variants={fadeSection}
           initial="initial"
@@ -340,21 +495,17 @@ export default function Home() {
           transition={{ duration: 1.3 }}
           className="relative z-10 mx-auto max-w-3xl rounded-[32px] border border-white/10 bg-white/10 px-7 py-16 text-center backdrop-blur-2xl"
         >
-
           <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-pink-300">
             Contacto
           </p>
-
           <h2 className="mb-6 text-4xl font-black uppercase md:text-6xl">
             <span className="text-pink-500">Creamos</span>{" "}
             <span className="text-blue-400">Algo Único</span>
           </h2>
-
           <p className="mx-auto mb-9 max-w-xl text-base text-white/75">
             Diseñamos experiencias digitales con personalidad visual fuerte y
             estética memorable para marcas que quieren destacar.
           </p>
-
           <motion.button
             whileHover={{
               scale: 1.07,
@@ -375,7 +526,6 @@ export default function Home() {
           >
             Empezar Proyecto
           </motion.button>
-
         </motion.div>
       </section>
 
