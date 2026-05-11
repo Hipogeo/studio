@@ -25,7 +25,7 @@ export default function Home() {
       {/* BACKGROUND */}
       <div className="fixed inset-0 z-0 overflow-hidden bg-black">
 
-        {/* LEFT GLOW */}
+        {/* LEFT GLOW — magenta/rosa del logo */}
         <motion.div
           animate={{
             scale: [1, 1.12, 1],
@@ -45,7 +45,7 @@ export default function Home() {
           "
         />
 
-        {/* RIGHT GLOW */}
+        {/* RIGHT GLOW — azul eléctrico del logo */}
         <motion.div
           animate={{
             scale: [1, 1.15, 1],
@@ -65,29 +65,51 @@ export default function Home() {
           "
         />
 
-        {/* STARFIELD (SINGLE CLEAN GRID LOOP) */}
+        {/* STARFIELD */}
         <div className="absolute inset-0 overflow-hidden">
 
+          {/* WHITE */}
           <motion.div
             animate={{ y: ["0%", "-50%"] }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
             className="absolute inset-[-100%]"
           >
             <div
-              className="absolute inset-0 opacity-20"
+              className="absolute inset-0 opacity-35"
               style={{
-                backgroundImage:
-                  "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
-                backgroundSize: "90px 90px",
+                backgroundImage: "radial-gradient(white 1px, transparent 1px)",
+                backgroundSize: "65px 65px",
               }}
             />
-
             <div
-              className="absolute top-full h-full w-full opacity-20"
+              className="absolute top-full h-full w-full opacity-35"
+              style={{
+                backgroundImage: "radial-gradient(white 1px, transparent 1px)",
+                backgroundSize: "65px 65px",
+              }}
+            />
+          </motion.div>
+
+          {/* VIOLET */}
+          <motion.div
+            animate={{ y: ["0%", "-50%"] }}
+            transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-[-100%]"
+          >
+            <div
+              className="absolute inset-0 opacity-15"
               style={{
                 backgroundImage:
                   "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
-                backgroundSize: "90px 90px",
+                backgroundSize: "120px 120px",
+              }}
+            />
+            <div
+              className="absolute top-full h-full w-full opacity-15"
+              style={{
+                backgroundImage:
+                  "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
+                backgroundSize: "120px 120px",
               }}
             />
           </motion.div>
@@ -99,16 +121,16 @@ export default function Home() {
       <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-2xl">
         <div className="relative mx-auto flex max-w-5xl items-center px-5 py-3">
 
-          {/* LOGO CHICO */}
-          <div className="absolute left-5 flex items-center">
-            <Image
-              src="/logo chico 2.png"
-              alt="Logo"
-              width={48}
-              height={48}
-              className="object-contain"
-            />
-          </div>
+          {/* LOGO S9 */}
+<div className="absolute left-5 flex items-center">
+  <Image
+    src="/logo-chico.png"
+    alt="Studio Nine Logo"
+    width={48}
+    height={48}
+    className="object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.7)]"
+  />
+</div>
 
           {/* MENU */}
           <nav className="mx-auto hidden gap-7 text-[11px] uppercase tracking-[0.28em] md:flex">
@@ -127,6 +149,7 @@ export default function Home() {
         className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-5 text-center"
       >
 
+        {/* CIRCLE */}
         <motion.div
           animate={{ rotate: [0, 360] }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
@@ -151,24 +174,26 @@ export default function Home() {
             Estudio Creativo Digital
           </p>
 
+          {/* LOGO GRANDE CON MISMA ANIMACIÓN */}
           <motion.div
             variants={fadeSection}
             initial="initial"
             whileInView="whileInView"
             viewport={{ amount: 0.5 }}
-            transition={{ duration: 1.3 }}
+            transition={{ duration: 1.3, ease: "easeOut" }}
           >
             <Image
               src="/logo grande 3.png"
-              alt="Logo Grande"
+              alt="Studio Nine Logo Grande"
               width={420}
               height={420}
-              className="mb-6 w-[260px] md:w-[420px] drop-shadow-[0_0_35px_rgba(236,72,153,0.35)]"
+              className="mb-6 h-auto w-[260px] md:w-[420px] drop-shadow-[0_0_35px_rgba(236,72,153,0.35)]"
             />
           </motion.div>
 
           <p className="mx-auto max-w-lg text-sm leading-relaxed text-white/75 md:text-base">
-            Creamos sitios web cinematográficos, branding visual y experiencias digitales con identidad estética fuerte y enfoque futurista.
+            Creamos sitios web cinematográficos, branding visual y experiencias
+            digitales con identidad estética fuerte y enfoque futurista.
           </p>
 
         </motion.div>
@@ -222,13 +247,35 @@ export default function Home() {
                 whileHover={{
                   scale: 1.04,
                   y: -8,
+                  transition: { duration: 0.16 },
                 }}
-                className="rounded-[26px] border border-white/10 bg-white/10 p-6 backdrop-blur-2xl"
+                className="
+                  rounded-[26px]
+                  border border-white/10
+                  bg-white/10
+                  p-6
+                  backdrop-blur-2xl
+                "
               >
+                <div
+                  className={`mb-5 text-3xl ${
+                    i === 0
+                      ? "text-pink-400"
+                      : i === 1
+                      ? "text-violet-400"
+                      : "text-blue-400"
+                  }`}
+                >
+                  ✦
+                </div>
+
                 <h3 className="mb-4 text-xl font-bold uppercase">
                   {item.title}
                 </h3>
-                <p className="text-sm text-white/75">{item.text}</p>
+
+                <p className="text-sm leading-relaxed text-white/75">
+                  {item.text}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -245,7 +292,12 @@ export default function Home() {
         <motion.div
           animate={{ rotate: [0, -360] }}
           transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-          className="absolute h-[360px] w-[360px] rounded-full border border-blue-400/10 md:h-[760px] md:w-[760px]"
+          className="
+            absolute
+            h-[360px] w-[360px]
+            rounded-full border border-blue-400/10
+            md:h-[760px] md:w-[760px]
+          "
         />
 
         <motion.div
@@ -257,13 +309,18 @@ export default function Home() {
           className="relative z-10 text-center"
         >
 
+          <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-violet-300">
+            Filosofía Visual
+          </p>
+
           <h2 className="mb-7 text-4xl font-black uppercase md:text-6xl">
             <span className="text-pink-500">Estética</span>{" "}
             <span className="text-blue-400">Experimental</span>
           </h2>
 
-          <p className="mx-auto max-w-2xl text-white/70">
-            Mezclamos diseño contemporáneo, referencias retrofuturistas y experiencias visuales inmersivas.
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/70">
+            Mezclamos diseño contemporáneo, referencias retrofuturistas y
+            experiencias visuales inmersivas inspiradas en cine y música.
           </p>
 
         </motion.div>
@@ -274,9 +331,52 @@ export default function Home() {
         id="contact"
         className="relative flex min-h-screen snap-start items-center justify-center px-5 py-20"
       >
-        <div className="text-center">
-          Contacto
-        </div>
+
+        <motion.div
+          variants={fadeSection}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ amount: 0.5 }}
+          transition={{ duration: 1.3 }}
+          className="relative z-10 mx-auto max-w-3xl rounded-[32px] border border-white/10 bg-white/10 px-7 py-16 text-center backdrop-blur-2xl"
+        >
+
+          <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-pink-300">
+            Contacto
+          </p>
+
+          <h2 className="mb-6 text-4xl font-black uppercase md:text-6xl">
+            <span className="text-pink-500">Creamos</span>{" "}
+            <span className="text-blue-400">Algo Único</span>
+          </h2>
+
+          <p className="mx-auto mb-9 max-w-xl text-base text-white/75">
+            Diseñamos experiencias digitales con personalidad visual fuerte y
+            estética memorable para marcas que quieren destacar.
+          </p>
+
+          <motion.button
+            whileHover={{
+              scale: 1.07,
+              boxShadow:
+                "-5px 0 18px rgba(236,72,153,0.65), 5px 0 18px rgba(96,165,250,0.65), 0 0 28px rgba(167,139,250,0.35)",
+            }}
+            transition={{ duration: 0.12 }}
+            className="
+              rounded-full
+              bg-gradient-to-r
+              from-pink-600
+              via-violet-500
+              to-blue-500
+              px-8 py-3
+              text-[11px] font-black uppercase tracking-[0.28em]
+              text-white
+            "
+          >
+            Empezar Proyecto
+          </motion.button>
+
+        </motion.div>
       </section>
 
     </main>
