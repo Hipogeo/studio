@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const fadeSection = {
   initial: {
@@ -24,9 +25,12 @@ export default function Home() {
       {/* BACKGROUND */}
       <div className="fixed inset-0 z-0 overflow-hidden bg-black">
 
-        {/* LEFT GLOW */}
+        {/* LEFT GLOW — magenta/rosa del logo */}
         <motion.div
-          animate={{ scale: [1, 1.12, 1], opacity: [0.2, 0.4, 0.2] }}
+          animate={{
+            scale: [1, 1.12, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
           transition={{ duration: 10, repeat: Infinity }}
           className="
             absolute
@@ -34,15 +38,19 @@ export default function Home() {
             h-[260px] w-[260px]
             rounded-full bg-pink-600
             blur-[100px]
+
             md:left-[-10%] md:top-[-10%]
             md:h-[430px] md:w-[430px]
             md:blur-[140px]
           "
         />
 
-        {/* RIGHT GLOW */}
+        {/* RIGHT GLOW — azul eléctrico del logo */}
         <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.35, 0.15] }}
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.15, 0.35, 0.15],
+          }}
           transition={{ duration: 14, repeat: Infinity }}
           className="
             absolute
@@ -50,6 +58,7 @@ export default function Home() {
             h-[300px] w-[300px]
             rounded-full bg-blue-500
             blur-[110px]
+
             md:bottom-[-20%] md:right-[-10%]
             md:h-[520px] md:w-[520px]
             md:blur-[160px]
@@ -90,14 +99,16 @@ export default function Home() {
             <div
               className="absolute inset-0 opacity-15"
               style={{
-                backgroundImage: "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
+                backgroundImage:
+                  "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
                 backgroundSize: "120px 120px",
               }}
             />
             <div
               className="absolute top-full h-full w-full opacity-15"
               style={{
-                backgroundImage: "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
+                backgroundImage:
+                  "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
                 backgroundSize: "120px 120px",
               }}
             />
@@ -110,35 +121,15 @@ export default function Home() {
       <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-2xl">
         <div className="relative mx-auto flex max-w-5xl items-center px-5 py-3">
 
-          {/* LOGO S9 SVG */}
+          {/* LOGO S9 */}
           <div className="absolute left-5 flex items-center">
-            <svg
-              width="48"
-              height="48"
-              viewBox="0 0 48 48"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <linearGradient id="s9grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ec4899" />
-                  <stop offset="50%" stopColor="#8b5cf6" />
-                  <stop offset="100%" stopColor="#60a5fa" />
-                </linearGradient>
-              </defs>
-              <text
-                x="50%"
-                y="54%"
-                dominantBaseline="middle"
-                textAnchor="middle"
-                fontFamily="Arial Black, sans-serif"
-                fontWeight="900"
-                fontSize="26"
-                fill="url(#s9grad)"
-              >
-                S9
-              </text>
-            </svg>
+            <Image
+              src="/logo-s9.png"
+              alt="Studio Nine Logo"
+              width={48}
+              height={48}
+              className="object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.7)]"
+            />
           </div>
 
           {/* MENU */}
@@ -158,6 +149,7 @@ export default function Home() {
         className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-5 text-center"
       >
 
+        {/* CIRCLE */}
         <motion.div
           animate={{ rotate: [0, 360] }}
           transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
@@ -182,14 +174,22 @@ export default function Home() {
             Estudio Creativo Digital
           </p>
 
-          <h1 className="mb-6 text-4xl font-black uppercase leading-none md:text-[5.7rem]">
-            <span className="block text-pink-500 drop-shadow-[0_0_25px_rgba(236,72,153,1)]">
-              STUDIO
-            </span>
-            <span className="block text-blue-400 drop-shadow-[0_0_25px_rgba(96,165,250,1)]">
-              NINE
-            </span>
-          </h1>
+          {/* LOGO GRANDE CON MISMA ANIMACIÓN */}
+          <motion.div
+            variants={fadeSection}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ amount: 0.5 }}
+            transition={{ duration: 1.3, ease: "easeOut" }}
+          >
+            <Image
+              src="/logo grande 1.png"
+              alt="Studio Nine Logo Grande"
+              width={420}
+              height={420}
+              className="mb-6 h-auto w-[260px] md:w-[420px] drop-shadow-[0_0_35px_rgba(236,72,153,0.35)]"
+            />
+          </motion.div>
 
           <p className="mx-auto max-w-lg text-sm leading-relaxed text-white/75 md:text-base">
             Creamos sitios web cinematográficos, branding visual y experiencias
@@ -244,7 +244,11 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ amount: 0.5 }}
                 transition={{ duration: 1, delay: i * 0.15 }}
-                whileHover={{ scale: 1.04, y: -8, transition: { duration: 0.16 } }}
+                whileHover={{
+                  scale: 1.04,
+                  y: -8,
+                  transition: { duration: 0.16 },
+                }}
                 className="
                   rounded-[26px]
                   border border-white/10
@@ -255,15 +259,23 @@ export default function Home() {
               >
                 <div
                   className={`mb-5 text-3xl ${
-                    i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"
+                    i === 0
+                      ? "text-pink-400"
+                      : i === 1
+                      ? "text-violet-400"
+                      : "text-blue-400"
                   }`}
                 >
                   ✦
                 </div>
 
-                <h3 className="mb-4 text-xl font-bold uppercase">{item.title}</h3>
+                <h3 className="mb-4 text-xl font-bold uppercase">
+                  {item.title}
+                </h3>
 
-                <p className="text-sm leading-relaxed text-white/75">{item.text}</p>
+                <p className="text-sm leading-relaxed text-white/75">
+                  {item.text}
+                </p>
               </motion.div>
             ))}
           </div>
