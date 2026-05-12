@@ -117,31 +117,111 @@ export default function Home() {
         </div>
       </div>
 
-      {/* NAVBAR */}
-      <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-2xl">
-        <div className="relative mx-auto flex max-w-5xl items-center px-5 py-3">
+{/* NAVBAR */}
+<header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/20 backdrop-blur-2xl">
+  <div className="relative flex items-center justify-end px-6 py-4">
 
-          {/* LOGO S9 */}
-          <div className="absolute left-5 flex items-center">
-            <Image
-              src="/logo-chico.png"
-              alt="Studio Nine Logo"
-              width={48}
-              height={48}
-              className="object-contain drop-shadow-[0_0_8px_rgba(236,72,153,0.7)]"
-            />
-          </div>
+    {/* STUDIO NINE TEXT LOGO */}
+    <div className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 flex items-center">
 
-          {/* MENU */}
-          <nav className="mx-auto hidden gap-7 text-[11px] uppercase tracking-[0.28em] md:flex">
-            <a href="#hero" className="transition hover:text-pink-400">Inicio</a>
-            <a href="#services" className="transition hover:text-violet-400">Servicios</a>
-            <a href="#showcase" className="transition hover:text-blue-400">Estética</a>
-            <a href="#contact" className="transition hover:text-pink-400">Contacto</a>
-          </nav>
+      <div className="relative select-none">
 
+        {/* GLOW */}
+        <div className="absolute inset-0 blur-xl opacity-80">
+          <span
+            className="
+              text-[28px]
+              font-black
+              tracking-tight
+              bg-gradient-to-r
+              from-pink-500
+              via-violet-400
+              to-blue-400
+              bg-clip-text
+              text-transparent
+            "
+          >
+            StudioNine
+          </span>
         </div>
-      </header>
+
+        {/* MAIN TEXT */}
+        <span
+          className="
+            relative
+            text-[28px]
+            font-black
+            tracking-tight
+            bg-gradient-to-r
+            from-pink-500
+            via-violet-400
+            to-blue-400
+            bg-clip-text
+            text-transparent
+          "
+        >
+          StudioNine
+        </span>
+
+      </div>
+
+    </div>
+
+    {/* MENU */}
+    <nav className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.28em] md:flex">
+
+      <a
+        href="#hero"
+        className="
+          transition-all
+          duration-300
+          hover:text-pink-400
+          hover:drop-shadow-[0_0_10px_rgba(236,72,153,0.9)]
+        "
+      >
+        Inicio
+      </a>
+
+      <a
+        href="#services"
+        className="
+          transition-all
+          duration-300
+          hover:text-violet-400
+          hover:drop-shadow-[0_0_10px_rgba(167,139,250,0.9)]
+        "
+      >
+        Servicios
+      </a>
+
+      <a
+        href="#showcase"
+        className="
+          transition-all
+          duration-300
+          hover:text-blue-400
+          hover:drop-shadow-[0_0_10px_rgba(96,165,250,0.9)]
+        "
+      >
+        Estética
+      </a>
+
+      <a
+        href="#contact"
+        className="
+          transition-all
+          duration-300
+          hover:text-pink-400
+          hover:drop-shadow-[0_0_10px_rgba(236,72,153,0.9)]
+        "
+      >
+        Contacto
+      </a>
+
+    </nav>
+
+  </div>
+</header>
 
       {/* HERO */}
       <section
