@@ -22,6 +22,8 @@ const fadeSection = {
 export default function Home() {
   const [isEnglish, setIsEnglish] = useState(false);
 
+  const [activeService, setActiveService] = useState<number | null>(null);
+
   return (
     <main className="h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden bg-black text-white scroll-smooth">
 
@@ -128,6 +130,7 @@ export default function Home() {
 
   </div>
 </header>
+
       {/* HERO */}
       <section
         id="hero"
@@ -283,101 +286,305 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section
-        id="services"
-        className="relative flex min-h-screen snap-start items-center justify-center px-5 py-20"
-      >
-        <motion.div
-          variants={fadeSection}
-          initial="initial"
-          whileInView="whileInView"
-          viewport={{ amount: 0.3 }}
-          transition={{ duration: 1.2 }}
-          className="relative z-10 mx-auto max-w-5xl"
-        >
+{/* SERVICES */}
+<section
+  id="services"
+  className="relative flex min-h-screen snap-start items-center justify-center px-5 py-20"
+>
+  <motion.div
+    variants={fadeSection}
+    initial="initial"
+    whileInView="whileInView"
+    viewport={{ amount: 0.3 }}
+    transition={{ duration: 1.2 }}
+    className="relative z-10 mx-auto w-full max-w-5xl"
+  >
+    {/* HEADER */}
+    <div className="mb-14 text-center">
+      <p className="mb-3 text-[clamp(11px,1vw,13px)] uppercase tracking-[0.4em] text-violet-300">
+        {isEnglish ? "Services" : "Servicios"}
+      </p>
 
-          <div className="mb-14 text-center">
-            <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-violet-300">
-              {isEnglish ? "Services" : "Servicios"}
-            </p>
+      <h2 className="text-[clamp(42px,6vw,88px)] font-black uppercase leading-none">
+        {isEnglish ? "What we do" : "Lo que hacemos"}
+      </h2>
+    </div>
 
-            <h2 className="text-3xl font-black uppercase md:text-5xl">
-              {isEnglish ? "What we do" : "Lo que hacemos"}
-            </h2>
-          </div>
+    {/* CONTAINER */}
+    <div className="relative h-[320px]">
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                es: "Diseño Web",
-                en: "Web Design",
-                tEs: "Sitios modernos y totalmente personalizados para marcas y proyectos creativos.",
-                tEn: "Modern and fully customized sites for brands and creative projects.",
-              },
-              {
-                es: "Branding",
-                en: "Branding",
-                tEs: "Creamos identidad visual, logos y dirección estética coherente.",
-                tEn: "We create visual identity, logos and coherent aesthetic direction.",
-              },
-              {
-                es: "Dirección Creativa",
-                en: "Creative Direction",
-                tEs: "Conceptos visuales únicos con foco en narrativa e impacto.",
-                tEn: "Unique visual concepts with a focus on narrative and impact.",
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{
-                  opacity: 0,
-                  y: 80,
-                  filter: "blur(18px)",
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  filter: "blur(0px)",
-                }}
-                viewport={{ amount: 0.5 }}
-                transition={{
-                  duration: 1,
-                  delay: i * 0.15,
-                }}
-                whileHover={{
-                  scale: 1.04,
-                  y: -8,
-                  transition: {
-                    duration: 0.16,
-                  },
-                }}
-                className="rounded-[26px] border border-white/10 bg-white/10 p-6 backdrop-blur-2xl"
-              >
-                <div
-                  className={`mb-5 text-3xl ${
-                    i === 0
-                      ? "text-pink-400"
-                      : i === 1
-                      ? "text-violet-400"
-                      : "text-blue-400"
-                  }`}
+      {[
+        {
+          es: "Diseño Web",
+          en: "Web Design",
+          tEs: "Sitios modernos y totalmente personalizados para marcas y proyectos creativos.",
+          tEn: "Modern and fully customized sites for brands and creative projects.",
+          contentEs: "Diseñamos y desarrollamos sitios web de alto impacto visual con arquitectura sólida, rendimiento optimizado y experiencia de usuario cuidada al detalle. Cada proyecto es una pieza única construida desde cero, adaptada a la identidad de la marca y orientada a generar presencia digital real y duradera.",
+          contentEn: "We design and develop high-impact websites with solid architecture, optimized performance and carefully crafted user experience. Each project is a unique piece built from scratch, tailored to the brand's identity and aimed at generating a real and lasting digital presence.",
+          gradient: "from-pink-500/30 via-violet-500/20 to-blue-500/20",
+        },
+        {
+          es: "Branding",
+          en: "Branding",
+          tEs: "Creamos identidad visual, logos y dirección estética coherente.",
+          tEn: "We create visual identity, logos and coherent aesthetic direction.",
+          contentEs: "Desarrollamos sistemas de identidad visual completos: logotipo, paleta cromática, tipografía, iconografía y lineamientos de uso. Construimos marcas con carácter propio, capaces de comunicar con claridad y consistencia en cualquier soporte, físico o digital.",
+          contentEn: "We develop complete visual identity systems: logotype, color palette, typography, iconography and usage guidelines. We build brands with their own character, able to communicate clearly and consistently across any medium, physical or digital.",
+          gradient: "from-violet-500/30 via-fuchsia-500/20 to-pink-500/20",
+        },
+        {
+          es: "Dirección Creativa",
+          en: "Creative Direction",
+          tEs: "Conceptos visuales únicos con foco en narrativa e impacto.",
+          tEn: "Unique visual concepts with a focus on narrative and impact.",
+          contentEs: "Definimos el concepto visual y narrativo de cada proyecto con precisión estratégica. Coordinamos estética, tono, forma y contenido para construir una experiencia cohesiva que comunique con intención. Trabajamos en campañas, lanzamientos y proyectos que requieren una visión creativa clara y ejecutada con excelencia.",
+          contentEn: "We define the visual and narrative concept of each project with strategic precision. We coordinate aesthetics, tone, form and content to build a cohesive experience that communicates with intention. We work on campaigns, launches and projects that require a clear creative vision executed with excellence.",
+          gradient: "from-blue-500/30 via-cyan-500/20 to-violet-500/20",
+        },
+      ].map((item, i) => {
+
+        const isActive = activeService === i;
+        const anotherIsActive = activeService !== null && activeService !== i;
+
+        return (
+          <motion.div
+            key={i}
+            layout
+            onClick={() => setActiveService(isActive ? null : i)}
+            transition={{ layout: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }}
+            animate={{
+              opacity: anotherIsActive ? 0 : 1,
+              scale: anotherIsActive ? 0.92 : 1,
+              filter: anotherIsActive ? "blur(12px)" : "blur(0px)",
+            }}
+            className={`absolute top-0 cursor-pointer overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.06] backdrop-blur-2xl transition-all duration-500 ${
+              isActive ? "left-0 w-full p-8 md:p-10" : "w-[31.5%] p-6"
+            }`}
+            style={{
+              left: isActive ? 0 : i === 0 ? "0%" : i === 1 ? "34.25%" : "68.5%",
+              height: "320px",
+              pointerEvents: anotherIsActive ? "none" : "auto",
+            }}
+          >
+            {/* BACKGROUND */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-40`} />
+
+            {/* GRID */}
+            <div
+              className="absolute inset-0 opacity-[0.06]"
+              style={{
+                backgroundImage: "linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)",
+                backgroundSize: "22px 22px",
+              }}
+            />
+
+            {/* CONTENT */}
+            <div className="relative z-10 h-full">
+
+              {/* CLOSED CARD */}
+              {!isActive && (
+                <motion.div
+                  initial={false}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="flex h-full flex-col"
                 >
-                  ✦
-                </div>
+                  <div className={`mb-5 text-3xl ${i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"}`}>
+                    ✦
+                  </div>
+                  <h3 className="mb-4 text-xl font-bold uppercase">
+                    {isEnglish ? item.en : item.es}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-white/75">
+                    {isEnglish ? item.tEn : item.tEs}
+                  </p>
+                </motion.div>
+              )}
 
-                <h3 className="mb-4 text-xl font-bold uppercase">
-                  {isEnglish ? item.en : item.es}
-                </h3>
+              {/* OPEN CARD */}
+              {isActive && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.45, delay: 0.2 }}
+                  className="flex h-full flex-row items-center gap-10"
+                >
 
-                <p className="text-sm leading-relaxed text-white/75">
-                  {isEnglish ? item.tEn : item.tEs}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
+                  {/* LEFT — TEXT */}
+                  <div className="flex flex-1 flex-col justify-center">
+                    <div className="mb-4 flex items-center gap-4">
+                      <div className={`text-4xl ${i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"}`}>
+                        ✦
+                      </div>
+                      <h3 className="text-[clamp(19px,2.5vw,37px)] font-black uppercase leading-none">
+                        {isEnglish ? item.en : item.es}
+                      </h3>
+                    </div>
+                    <p className="max-w-lg text-[clamp(13px,1.1vw,16px)] leading-relaxed text-white/75">
+                      {isEnglish ? item.contentEn : item.contentEs}
+                    </p>
+                  </div>
+
+                  {/* RIGHT — GRAPHIC */}
+                  <div className="flex h-full w-[320px] shrink-0 items-center justify-center">
+
+                    {/* GRAPHIC 0 — Browser window */}
+                    {i === 0 && (
+                      <div className="relative h-[220px] w-[280px] overflow-hidden rounded-[18px] border border-white/15 bg-black/40 shadow-[0_0_40px_rgba(236,72,153,0.15)]">
+                        {/* Browser bar */}
+                        <div className="flex items-center gap-2 border-b border-white/10 bg-white/5 px-3 py-2">
+                          <div className="h-2 w-2 rounded-full bg-pink-400/80" />
+                          <div className="h-2 w-2 rounded-full bg-violet-400/80" />
+                          <div className="h-2 w-2 rounded-full bg-blue-400/80" />
+                          <div className="mx-2 flex-1 rounded-full bg-white/10 py-[3px] px-2">
+                            <motion.div
+                              animate={{ width: ["40%", "80%", "60%", "40%"] }}
+                              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                              className="h-[4px] rounded-full bg-pink-400/50"
+                            />
+                          </div>
+                        </div>
+                        {/* Page content */}
+                        <div className="p-4 space-y-2">
+                          {/* Hero block */}
+                          <motion.div
+                            animate={{ opacity: [0.4, 1, 0.4] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                            className="h-14 rounded-[10px] bg-gradient-to-r from-pink-500/30 via-violet-500/20 to-blue-500/20"
+                          />
+                          {/* Text lines */}
+                          <motion.div animate={{ width: ["70%", "90%", "70%"] }} transition={{ duration: 3.5, repeat: Infinity }} className="h-2 rounded-full bg-white/20" />
+                          <motion.div animate={{ width: ["50%", "75%", "50%"] }} transition={{ duration: 4, repeat: Infinity }} className="h-2 rounded-full bg-white/10" />
+                          {/* Cards row */}
+                          <div className="flex gap-2 pt-1">
+                            {[0, 1, 2].map((j) => (
+                              <motion.div
+                                key={j}
+                                animate={{ y: [0, -4, 0] }}
+                                transition={{ duration: 2, repeat: Infinity, delay: j * 0.4 }}
+                                className="flex-1 h-10 rounded-[8px] bg-white/[0.06] border border-white/10"
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        {/* Scan line */}
+                        <motion.div
+                          animate={{ y: ["-100%", "400%"] }}
+                          transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                          className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-pink-400/60 to-transparent"
+                        />
+                      </div>
+                    )}
+
+                    {/* GRAPHIC 1 — Branding / logo refinement */}
+                    {i === 1 && (
+                      <div className="relative flex h-[220px] w-[280px] items-center justify-center">
+                        {/* Outer glow rings */}
+                        {[0, 1, 2].map((j) => (
+                          <motion.div
+                            key={j}
+                            animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.35, 0.15] }}
+                            transition={{ duration: 2.5 + j * 0.7, repeat: Infinity, delay: j * 0.5 }}
+                            className="absolute rounded-full border border-violet-400/30"
+                            style={{ width: 80 + j * 44, height: 80 + j * 44 }}
+                          />
+                        ))}
+                        {/* Center logo mark */}
+                        <motion.div
+                          animate={{ rotate: [0, 360] }}
+                          transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+                          className="absolute h-[72px] w-[72px] rounded-full"
+                          style={{
+                            background: "conic-gradient(from 0deg, #ec4899, #8b5cf6, #a855f7, #ec4899)",
+                            mask: "radial-gradient(circle, transparent 62%, black 63%)",
+                            WebkitMask: "radial-gradient(circle, transparent 62%, black 63%)",
+                          }}
+                        />
+                        <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-xl">
+                          <span className="text-2xl font-black bg-gradient-to-br from-pink-400 via-violet-400 to-blue-400 bg-clip-text text-transparent">S9</span>
+                        </div>
+                        {/* Left spark */}
+                        <motion.div
+                          animate={{ x: [-60, -80, -60], opacity: [0, 1, 0], scale: [0.6, 1.2, 0.6] }}
+                          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+                          className="absolute left-6 text-pink-400 text-lg"
+                        >✦</motion.div>
+                        {/* Right spark */}
+                        <motion.div
+                          animate={{ x: [60, 80, 60], opacity: [0, 1, 0], scale: [0.6, 1.2, 0.6] }}
+                          transition={{ duration: 2.2, repeat: Infinity, delay: 0.6, ease: "easeInOut" }}
+                          className="absolute right-6 text-violet-400 text-lg"
+                        >✦</motion.div>
+                        {/* Top spark */}
+                        <motion.div
+                          animate={{ y: [-50, -68, -50], opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
+                          transition={{ duration: 2.8, repeat: Infinity, delay: 1.1, ease: "easeInOut" }}
+                          className="absolute top-4 text-blue-400 text-sm"
+                        >✦</motion.div>
+                        {/* Bottom spark */}
+                        <motion.div
+                          animate={{ y: [50, 68, 50], opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
+                          transition={{ duration: 2.8, repeat: Infinity, delay: 1.7, ease: "easeInOut" }}
+                          className="absolute bottom-4 text-fuchsia-400 text-sm"
+                        >✦</motion.div>
+                      </div>
+                    )}
+
+                    {/* GRAPHIC 2 — Creative direction / storyboard */}
+                    {i === 2 && (
+                      <div className="relative h-[220px] w-[280px]">
+                        {/* Storyboard frames */}
+                        <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
+                          {[
+                            { color: "from-blue-500/40 to-cyan-500/20", delay: 0 },
+                            { color: "from-violet-500/40 to-blue-400/20", delay: 0.3 },
+                            { color: "from-cyan-500/40 to-violet-500/20", delay: 0.6 },
+                            { color: "from-blue-400/40 to-fuchsia-500/20", delay: 0.9 },
+                          ].map((frame, j) => (
+                            <motion.div
+                              key={j}
+                              animate={{ opacity: [0.5, 1, 0.5], scale: [0.97, 1, 0.97] }}
+                              transition={{ duration: 2.4, repeat: Infinity, delay: frame.delay }}
+                              className={`relative overflow-hidden rounded-[10px] border border-white/10 bg-gradient-to-br ${frame.color}`}
+                            >
+                              {/* Inner scan */}
+                              <motion.div
+                                animate={{ x: ["-100%", "200%"] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: frame.delay }}
+                                className="absolute inset-y-0 w-8 rotate-12 bg-white/10 blur-md"
+                              />
+                              {/* Composition lines */}
+                              <div className="absolute inset-0 flex flex-col justify-center gap-1 px-2">
+                                <div className="h-[2px] w-[60%] rounded-full bg-white/20" />
+                                <div className="h-[2px] w-[40%] rounded-full bg-white/10" />
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                        {/* Center crosshair */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                          <motion.div
+                            animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.7, 0.3] }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                            className="h-6 w-6 rounded-full border border-cyan-400/60"
+                          />
+                          <div className="absolute h-[1px] w-8 bg-cyan-400/40" />
+                          <div className="absolute h-8 w-[1px] bg-cyan-400/40" />
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                </motion.div>
+              )}
+
+            </div>
+          </motion.div>
+        );
+      })}
+    </div>
+  </motion.div>
+</section>
 
       {/* SHOWCASE */}
       <section
