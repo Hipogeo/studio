@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <main className="h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden bg-black text-white scroll-smooth">
 
-      {/* BACKGROUND */}
+{/* BACKGROUND */}
       <div className="fixed inset-0 z-0 overflow-hidden bg-black">
 
         {/* LEFT GLOW */}
@@ -48,47 +48,28 @@ export default function Home() {
           className="absolute bottom-[-25%] right-[-35%] h-[300px] w-[300px] rounded-full bg-blue-500 blur-[110px] md:bottom-[-20%] md:right-[-10%] md:h-[520px] md:w-[520px] md:blur-[160px]"
         />
 
-        {/* STARFIELD */}
+        {/* STARFIELD - DOTS ULTRA-NÍTIDOS */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
             animate={{ y: ["0%", "-50%"] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             className="absolute inset-[-100%]"
           >
-            <div
-              className="absolute inset-0 opacity-35"
-              style={{
-                backgroundImage: "radial-gradient(white 1px, transparent 1px)",
-                backgroundSize: "65px 65px",
-              }}
+            {/* Capa de puntos nítidos */}
+            <div 
+              className="absolute inset-0 opacity-30" 
+              style={{ 
+                backgroundImage: "radial-gradient(circle, white 1px, transparent 0)",
+                backgroundSize: "50px 50px",
+              }} 
             />
-            <div
-              className="absolute top-full h-full w-full opacity-35"
-              style={{
-                backgroundImage: "radial-gradient(white 1px, transparent 1px)",
-                backgroundSize: "65px 65px",
-              }}
-            />
-          </motion.div>
-
-          <motion.div
-            animate={{ y: ["0%", "-50%"] }}
-            transition={{ duration: 32, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-[-100%]"
-          >
-            <div
-              className="absolute inset-0 opacity-15"
-              style={{
-                backgroundImage: "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
-                backgroundSize: "120px 120px",
-              }}
-            />
-            <div
-              className="absolute top-full h-full w-full opacity-15"
-              style={{
-                backgroundImage: "radial-gradient(rgb(167,139,250) 1px, transparent 1px)",
-                backgroundSize: "120px 120px",
-              }}
+            {/* Duplicado para scroll infinito */}
+            <div 
+              className="absolute top-full h-full w-full opacity-30" 
+              style={{ 
+                backgroundImage: "radial-gradient(circle, white 1px, transparent 0)",
+                backgroundSize: "50px 50px",
+              }} 
             />
           </motion.div>
         </div>
@@ -206,51 +187,101 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* SHOWCASE */}
+{/* SHOWCASE */}
       <section id="showcase" className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-5 py-20">
+        
+        {/* EL RING (Sincronizado con el tamaño del Hero) */}
         <motion.div
           animate={{ rotate: [0, -360] }}
           transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-          className="absolute h-[360px] w-[360px] rounded-full border border-blue-400/10 md:h-[760px] md:w-[760px]"
+          className="absolute h-[350px] w-[350px] rounded-full border border-blue-400/20 md:h-[520px] md:w-[520px]"
+          style={{
+            maskImage: "radial-gradient(circle, transparent 69%, black 70%)",
+            WebkitMaskImage: "radial-gradient(circle, transparent 69%, black 70%)",
+          }}
         />
-        <motion.div variants={fadeSection} initial="initial" whileInView="whileInView" viewport={{ amount: 0.5 }} transition={{ duration: 1.3 }} className="relative z-10 text-center">
-          <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-violet-300">{isEnglish ? "Visual Philosophy" : "Filosofía Visual"}</p>
+
+        {/* Resplandor sutil para el ring */}
+        <div className="absolute h-[350px] w-[350px] rounded-full border border-pink-500/10 blur-sm md:h-[520px] md:w-[520px]" />
+
+        <motion.div 
+          variants={fadeSection} 
+          initial="initial" 
+          whileInView="whileInView" 
+          viewport={{ amount: 0.5 }} 
+          transition={{ duration: 1.3 }} 
+          className="relative z-10 text-center"
+        >
+          <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-violet-300">
+            {isEnglish ? "Visual Philosophy" : "Filosofía Visual"}
+          </p>
           <h2 className="mb-7 text-4xl font-black uppercase md:text-6xl">
             <span className="text-pink-500">{isEnglish ? "Aesthetic" : "Estética"}</span>{" "}
             <span className="text-blue-400">{isEnglish ? "Experimental" : "Experimental"}</span>
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/70">
-            {isEnglish ? "We mix contemporary design, retro-futuristic references and immersive visual experiences inspired by cinema and music." : "Mezclamos diseño contemporáneo, referencias retrofuturistas y experiencias visuales inmersivas inspiradas en cine y música."}
+            {isEnglish 
+              ? "We mix contemporary design, retro-futuristic references and immersive visual experiences inspired by cinema and music." 
+              : "Mezclamos diseño contemporáneo, referencias retrofuturistas y experiencias visuales inmersivas inspiradas en cine y música."}
           </p>
         </motion.div>
       </section>
 
-      {/* PORTFOLIO CAROUSEL */}
-      <section className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-5 py-24">
-        <motion.div variants={fadeSection} initial="initial" whileInView="whileInView" viewport={{ amount: 0.3 }} transition={{ duration: 1.2 }} className="relative z-10 w-full max-w-[1600px]">
-          <div className="mb-14 text-center">
-            <p className="mb-3 text-[11px] uppercase tracking-[0.4em] text-violet-300">Portfolio</p>
-            <h2 className="text-4xl font-black uppercase md:text-7xl">{isEnglish ? "Our works" : "Nuestros trabajos"}</h2>
+{/* PORTFOLIO CAROUSEL - COMPACT VERSION */}
+      <section className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-5 py-10 md:py-16">
+        <motion.div 
+          variants={fadeSection} 
+          initial="initial" 
+          whileInView="whileInView" 
+          viewport={{ amount: 0.3 }} 
+          transition={{ duration: 1.2 }} 
+          className="relative z-10 w-full max-w-[1400px]"
+        >
+          {/* Header más pequeño */}
+          <div className="mb-6 md:mb-10 text-center">
+            <p className="mb-2 text-[9px] uppercase tracking-[0.4em] text-violet-300">Portfolio</p>
+            <h2 className="text-3xl font-black uppercase md:text-5xl">{isEnglish ? "Our works" : "Nuestros trabajos"}</h2>
           </div>
-          <div className="relative px-4 md:px-16">
-            <button onClick={() => document.getElementById("portfolio-scroll")?.scrollBy({ left: -420, behavior: "smooth" })} className="absolute -left-2 md:-left-8 top-1/2 z-30 -translate-y-1/2 rounded-full border border-pink-500/30 bg-black/40 p-5 text-2xl text-pink-400 backdrop-blur-xl transition hover:scale-110 hover:border-pink-400 hover:shadow-[0_0_30px_rgba(236,72,153,0.8)]">‹</button>
-            <button onClick={() => document.getElementById("portfolio-scroll")?.scrollBy({ left: 420, behavior: "smooth" })} className="absolute -right-2 md:-right-8 top-1/2 z-30 -translate-y-1/2 rounded-full border border-blue-500/30 bg-black/40 p-5 text-2xl text-blue-400 backdrop-blur-xl transition hover:scale-110 hover:border-blue-400 hover:shadow-[0_0_30px_rgba(96,165,250,0.8)]">›</button>
+
+          <div className="relative px-4 md:px-12">
+            {/* Botones ajustados en tamaño */}
+            <button 
+              onClick={() => document.getElementById("portfolio-scroll")?.scrollBy({ left: -320, behavior: "smooth" })} 
+              className="absolute -left-2 md:left-0 top-1/2 z-30 -translate-y-1/2 rounded-full border border-pink-500/30 bg-black/40 p-3 md:p-4 text-xl text-pink-400 backdrop-blur-xl transition hover:scale-110 hover:border-pink-400"
+            >
+              ‹
+            </button>
+            <button 
+              onClick={() => document.getElementById("portfolio-scroll")?.scrollBy({ left: 320, behavior: "smooth" })} 
+              className="absolute -right-2 md:right-0 top-1/2 z-30 -translate-y-1/2 rounded-full border border-blue-500/30 bg-black/40 p-3 md:p-4 text-xl text-blue-400 backdrop-blur-xl transition hover:scale-110 hover:border-blue-400"
+            >
+              ›
+            </button>
+
             <div
               id="portfolio-scroll"
-              className="flex gap-8 overflow-x-auto overflow-y-hidden scroll-smooth px-10 py-16 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="flex gap-5 overflow-x-auto overflow-y-hidden scroll-smooth px-6 py-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               style={{
-                maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-                WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)'
+                maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent)'
               }}
             >
               {["Neo Brand Site", "Cyber Studio", "Luxury UI", "Vaporwave Landing", "Future Commerce", "Digital Identity"].map((title, i) => (
-                <motion.div key={title} whileHover={{ y: -10, boxShadow: i % 2 === 0 ? "0 20px 60px rgba(236,72,153,0.35)" : "0 20px 60px rgba(96,165,250,0.35)", borderColor: i % 2 === 0 ? "rgba(236,72,153,0.5)" : "rgba(96,165,250,0.5)" }} transition={{ duration: 0.3 }} className="group relative min-w-[320px] rounded-[34px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-2xl">
-                  <div className={`relative mb-6 h-[180px] overflow-hidden rounded-[22px] ${i % 2 === 0 ? "bg-gradient-to-br from-pink-500/40 to-blue-500/20" : "bg-gradient-to-br from-violet-500/40 to-blue-400/20"}`}>
-                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
-                    <motion.div animate={{ x: ["-100%", "200%"] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="absolute inset-y-0 w-24 rotate-12 bg-white/10 blur-2xl" />
+                <motion.div 
+                  key={title} 
+                  whileHover={{ y: -5, scale: 1.02 }} 
+                  transition={{ duration: 0.2 }} 
+                  className="group relative min-w-[260px] md:min-w-[300px] rounded-[24px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-2xl"
+                >
+                  {/* Preview de imagen más baja (140px en vez de 180px) */}
+                  <div className={`relative mb-4 h-[140px] overflow-hidden rounded-[18px] ${i % 2 === 0 ? "bg-gradient-to-br from-pink-500/30 to-blue-500/20" : "bg-gradient-to-br from-violet-500/30 to-blue-400/20"}`}>
+                    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)", backgroundSize: "15px 15px" }} />
+                    <motion.div animate={{ x: ["-100%", "200%"] }} transition={{ duration: 4, repeat: Infinity, ease: "linear" }} className="absolute inset-y-0 w-16 rotate-12 bg-white/5 blur-xl" />
                   </div>
-                  <h3 className="mb-3 text-2xl font-black uppercase leading-none tracking-tight">{title}</h3>
-                  <p className="text-sm leading-relaxed text-white/60">{isEnglish ? "Web design / branding / digital experience" : "Diseño web / branding / experiencia digital"}</p>
+                  
+                  {/* Tipografía más compacta */}
+                  <h3 className="mb-2 text-lg font-black uppercase leading-tight tracking-tight">{title}</h3>
+                  <p className="text-[11px] leading-relaxed text-white/50">{isEnglish ? "Web design / branding" : "Diseño web / branding"}</p>
                 </motion.div>
               ))}
             </div>
