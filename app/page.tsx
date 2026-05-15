@@ -286,7 +286,7 @@ export default function Home() {
         </div>
       </section>
 
-{/* SERVICES */}
+{/* SERVICES - FULL INTEGRATION: NEON COLORS + BUTTONS + ANIMATED GRAPHICS */}
 <section
   id="services"
   className="relative flex min-h-screen snap-start items-center justify-center px-5 py-20"
@@ -319,8 +319,8 @@ export default function Home() {
           en: "Web Design",
           tEs: "Sitios modernos y totalmente personalizados para marcas y proyectos creativos.",
           tEn: "Modern and fully customized sites for brands and creative projects.",
-          contentEs: "Diseñamos y desarrollamos sitios web de alto impacto visual con arquitectura sólida, rendimiento optimizado y experiencia de usuario cuidada al detalle. Cada proyecto es una pieza única construida desde cero, adaptada a la identidad de la marca y orientada a generar presencia digital real y duradera.",
-          contentEn: "We design and develop high-impact websites with solid architecture, optimized performance and carefully crafted user experience. Each project is a unique piece built from scratch, tailored to the brand's identity and aimed at generating a real and lasting digital presence.",
+          contentEs: "Diseñamos y desarrollamos sitios web de alto impacto visual con arquitectura sólida, rendimiento optimizado y experiencia de usuario cuidada al detalle. Cada proyecto es una pieza única construida desde cero.",
+          contentEn: "We design and develop high-impact websites with solid architecture, optimized performance and carefully crafted user experience. Each project is a unique piece built from scratch.",
           gradient: "from-pink-500/30 via-violet-500/20 to-blue-500/20",
         },
         {
@@ -328,8 +328,8 @@ export default function Home() {
           en: "Branding",
           tEs: "Creamos identidad visual, logos y dirección estética coherente.",
           tEn: "We create visual identity, logos and coherent aesthetic direction.",
-          contentEs: "Desarrollamos sistemas de identidad visual completos: logotipo, paleta cromática, tipografía, iconografía y lineamientos de uso. Construimos marcas con carácter propio, capaces de comunicar con claridad y consistencia en cualquier soporte, físico o digital.",
-          contentEn: "We develop complete visual identity systems: logotype, color palette, typography, iconography and usage guidelines. We build brands with their own character, able to communicate clearly and consistently across any medium, physical or digital.",
+          contentEs: "Desarrollamos sistemas de identidad visual completos: logotipo, paleta cromática, tipografía e iconografía. Construimos marcas con carácter propio, capaces de comunicar con consistencia.",
+          contentEn: "We develop complete visual identity systems: logotype, color palette, typography and iconography. We build brands with their own character, able to communicate consistently.",
           gradient: "from-violet-500/30 via-fuchsia-500/20 to-pink-500/20",
         },
         {
@@ -337,17 +337,22 @@ export default function Home() {
           en: "Creative Direction",
           tEs: "Conceptos visuales únicos con foco en narrativa e impacto.",
           tEn: "Unique visual concepts with a focus on narrative and impact.",
-          contentEs: "Definimos el concepto visual y narrativo de cada proyecto con precisión estratégica. Coordinamos estética, tono, forma y contenido para construir una experiencia cohesiva que comunique con intención. Trabajamos en campañas, lanzamientos y proyectos que requieren una visión creativa clara y ejecutada con excelencia.",
-          contentEn: "We define the visual and narrative concept of each project with strategic precision. We coordinate aesthetics, tone, form and content to build a cohesive experience that communicates with intention. We work on campaigns, launches and projects that require a clear creative vision executed with excellence.",
+          contentEs: "Definimos el concepto visual y narrativo de cada proyecto con precisión estratégica. Coordinamos estética, tono y contenido para construir una experiencia cohesiva que comunique con intención.",
+          contentEn: "We define the visual and narrative concept of each project with strategic precision. We coordinate aesthetics, tone and content to build a cohesive experience that communicates with intention.",
           gradient: "from-blue-500/30 via-cyan-500/20 to-violet-500/20",
         },
       ].map((item, i) => {
         const isActive = activeService === i;
         const anotherIsActive = activeService !== null && activeService !== i;
 
-        // EFECTO NEÓN (Tailwind Classes)
-        const neonStyles = i % 2 === 0 
+        // ASIGNACIÓN DE COLORES SINCRONIZADA
+        const accentColor = i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400";
+        const accentBg = i === 0 ? "bg-pink-400/10 border-pink-400/20" : i === 1 ? "bg-violet-400/10 border-violet-400/20" : "bg-blue-400/10 border-blue-400/20";
+        
+        const neonStyles = i === 0 
           ? "hover:border-pink-500 hover:shadow-[0_0_25px_rgba(236,72,153,0.3)]" 
+          : i === 1 
+          ? "hover:border-violet-500 hover:shadow-[0_0_25px_rgba(167,139,250,0.3)]"
           : "hover:border-blue-400 hover:shadow-[0_0_25px_rgba(96,165,250,0.3)]";
 
         return (
@@ -377,9 +382,19 @@ export default function Home() {
             <div className="relative z-10 h-full">
               {!isActive && (
                 <motion.div initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="flex h-full flex-col">
-                  <div className={`mb-5 text-3xl ${i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"}`}>✦</div>
+                  <div className={`mb-5 text-3xl ${accentColor}`}>✦</div>
                   <h3 className="mb-4 text-xl font-bold uppercase">{isEnglish ? item.en : item.es}</h3>
-                  <p className="text-sm leading-relaxed text-white/75">{isEnglish ? item.tEn : item.tEs}</p>
+                  <p className="mb-6 text-sm leading-relaxed text-white/75">{isEnglish ? item.tEn : item.tEs}</p>
+                  
+                  {/* BOTÓN DE EXPANSIÓN */}
+                  <div className="mt-auto">
+                    <div className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 transition-all duration-300 hover:bg-white/10 ${accentBg}`}>
+                      <span className={`text-[10px] font-black uppercase tracking-widest ${accentColor}`}>
+                        {isEnglish ? "View more" : "Ver más"}
+                      </span>
+                      <span className={`text-xs ${accentColor}`}>+</span>
+                    </div>
+                  </div>
                 </motion.div>
               )}
 
@@ -387,15 +402,14 @@ export default function Home() {
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.2 }} className="flex h-full flex-row items-center gap-10">
                   <div className="flex flex-1 flex-col justify-center">
                     <div className="mb-4 flex items-center gap-4">
-                      <div className={`text-4xl ${i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"}`}>✦</div>
+                      <div className={`text-4xl ${accentColor}`}>✦</div>
                       <h3 className="text-[clamp(19px,2.5vw,37px)] font-black uppercase leading-none">{isEnglish ? item.en : item.es}</h3>
                     </div>
                     <p className="max-w-lg text-[clamp(13px,1.1vw,16px)] leading-relaxed text-white/75">{isEnglish ? item.contentEn : item.contentEs}</p>
                   </div>
 
-                  {/* GRAPHICS AREA */}
+                  {/* GRAPHICS AREA (RECUPERADO) */}
                   <div className="flex h-full w-[320px] shrink-0 items-center justify-center">
-                    {/* GRÁFICO 0 - WEB DESIGN */}
                     {i === 0 && (
                       <div className="relative h-[220px] w-[280px] overflow-hidden rounded-[18px] border border-white/15 bg-black/40 shadow-[0_0_40px_rgba(236,72,153,0.15)]">
                         <div className="flex items-center gap-2 border-b border-white/10 bg-white/5 px-3 py-2">
@@ -415,7 +429,6 @@ export default function Home() {
                       </div>
                     )}
 
-                    {/* GRÁFICO 1 - BRANDING (LOGO S9 CON DESTELLOS) */}
                     {i === 1 && (
                       <div className="relative flex h-[300px] w-[300px] items-center justify-center">
                         {[0, 1, 2].map((j) => (
@@ -428,18 +441,14 @@ export default function Home() {
                           { top: "15%", right: "20%", delay: 0.1, size: "text-2xl" },
                           { bottom: "20%", left: "15%", delay: 0.8, size: "text-xl" },
                           { top: "5%", left: "45%", delay: 1.5, size: "text-sm" },
-                          { bottom: "10%", right: "40%", delay: 2.2, size: "text-lg" },
                           { top: "40%", left: "10%", delay: 0.4, size: "text-base" },
-                          { top: "35%", right: "5%", delay: 1.1, size: "text-sm" },
                           { bottom: "25%", right: "15%", delay: 1.9, size: "text-xl" },
-                          { top: "60%", left: "5%", delay: 2.6, size: "text-lg" },
                         ].map((spark, index) => (
                           <motion.div key={index} animate={{ scale: [0, 1.2, 0], opacity: [0, 1, 0], rotate: [0, 90, 180] }} transition={{ duration: 2.5, repeat: Infinity, delay: spark.delay }} className={`absolute ${spark.size} text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]`} style={{ top: spark.top, bottom: spark.bottom, left: spark.left, right: spark.right }}>✦</motion.div>
                         ))}
                       </div>
                     )}
 
-                    {/* GRÁFICO 2 - CREATIVE DIRECTION */}
                     {i === 2 && (
                       <div className="relative h-[220px] w-[280px]">
                         <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
@@ -544,106 +553,137 @@ export default function Home() {
         </motion.div>
       </section>
 
-{/* PORTFOLIO CAROUSEL - FIXED CENTERING */}
-<section className="relative flex h-screen snap-start flex-col justify-center overflow-hidden px-5">
-  {/* El h-screen con flex-col justify-center asegura que el contenido esté 
-      siempre en el centro exacto de la pantalla sin importar el tamaño */}
-  
+{/* PORTFOLIO CAROUSEL - MANUAL INFINITE LOOP */}
+<section className="relative flex h-screen snap-start flex-col justify-center overflow-hidden px-5 py-20 md:py-24">
   <motion.div
     variants={fadeSection}
     initial="initial"
     whileInView="whileInView"
     viewport={{ amount: 0.3 }}
     transition={{ duration: 1.2 }}
-    className="relative z-10 mx-auto w-full max-w-[1300px]"
+    className="relative z-10 mx-auto w-full max-w-[1400px]"
   >
-    {/* Header - Márgenes controlados para no empujar hacia abajo */}
-    <div className="mb-8 text-center">
-      <p className="mb-2 text-[clamp(9px,0.8vw,11px)] uppercase tracking-[0.4em] text-violet-300">
+    {/* Header */}
+    <div className="mb-12 md:mb-16 text-center">
+      <p className="mb-3 text-[clamp(10px,0.9vw,12px)] uppercase tracking-[0.4em] text-violet-300">
         Portfolio
       </p>
-      <h2 className="text-[clamp(28px,3.5vw,48px)] font-black uppercase tracking-tighter">
+      <h2 className="text-[clamp(32px,5vw,64px)] font-black uppercase leading-none tracking-tighter">
         {isEnglish ? "Our works" : "Nuestros trabajos"}
       </h2>
     </div>
 
-    <div className="relative">
-      {/* Botones de navegación - Posicionados para no interferir con el scroll */}
+    <div className="relative px-2 md:px-10">
+      {/* Botones de navegación con lógica de Teletransporte */}
       <button
-        onClick={() => document.getElementById("portfolio-scroll")?.scrollBy({ left: -300, behavior: "smooth" })}
-        className="absolute -left-4 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/10 bg-black/60 p-3 text-white/50 backdrop-blur-xl transition hover:scale-110 hover:border-pink-500 hover:text-pink-400 hidden lg:flex items-center justify-center"
+        onClick={() => {
+          const el = document.getElementById("portfolio-scroll");
+          if (el) {
+            el.scrollBy({ left: -380, behavior: "smooth" });
+            
+            // Si está muy cerca del inicio del set duplicado, saltamos al centro
+            if (el.scrollLeft <= 100) {
+              setTimeout(() => {
+                el.scrollTo({ left: el.scrollWidth / 3, behavior: "auto" });
+              }, 500); // Espera a que termine la animación "smooth"
+            }
+          }
+        }}
+        className="absolute -left-6 top-1/2 z-40 -translate-y-1/2 rounded-full border border-white/10 bg-black/60 p-3 md:p-4 text-white/50 backdrop-blur-xl transition hover:scale-110 hover:border-pink-500 hover:text-pink-400 hidden md:flex items-center justify-center"
       >
         ‹
       </button>
 
       <button
-        onClick={() => document.getElementById("portfolio-scroll")?.scrollBy({ left: 300, behavior: "smooth" })}
-        className="absolute -right-4 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/10 bg-black/60 p-3 text-white/50 backdrop-blur-xl transition hover:scale-110 hover:border-blue-500 hover:text-blue-400 hidden lg:flex items-center justify-center"
+        onClick={() => {
+          const el = document.getElementById("portfolio-scroll");
+          if (el) {
+            el.scrollBy({ left: 380, behavior: "smooth" });
+
+            // Si está llegando al final del set duplicado, saltamos al centro
+            if (el.scrollLeft + el.clientWidth >= (el.scrollWidth * 2) / 3) {
+              setTimeout(() => {
+                el.scrollTo({ left: el.scrollWidth / 3, behavior: "auto" });
+              }, 500);
+            }
+          }
+        }}
+        className="absolute -right-6 top-1/2 z-40 -translate-y-1/2 rounded-full border border-white/10 bg-black/60 p-3 md:p-4 text-white/50 backdrop-blur-xl transition hover:scale-110 hover:border-blue-500 hover:text-blue-400 hidden md:flex items-center justify-center"
       >
         ›
       </button>
 
       <div
         id="portfolio-scroll"
-        className="flex gap-5 overflow-x-auto overflow-y-hidden scroll-smooth py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-6 overflow-x-auto overflow-y-hidden scroll-smooth py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{
-          maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+          maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
         }}
       >
-        {[
-          "Neo Brand Site",
-          "Cyber Studio",
-          "Luxury UI",
-          "Vaporwave Landing",
-          "Future Commerce",
-          "Digital Identity",
-          "S9 Vision",
-        ].map((title, i) => {
-          const isPink = i % 2 === 0;
-          const neonClass = isPink 
-            ? "hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.3)]" 
-            : "hover:border-blue-400 hover:shadow-[0_0_15px_rgba(96,165,250,0.3)]";
+        {/* Usamos 3 copias. El usuario empezará en la del medio (Set 1) */}
+        {[0, 1, 2].map((setIndex) => (
+          <React.Fragment key={setIndex}>
+            {[
+              { title: "Real Estate Platform", link: "https://inmobiliaria-eta-sepia.vercel.app/", img: "/web-inmobiliaria.png" },
+              { title: "Tapiclear", link: "https://tapiclear.vercel.app/", img: "/web-tapiclear.png" },
+              { title: "Neo Brand Site" },
+              { title: "Cyber Studio" },
+              { title: "Luxury UI" },
+              { title: "Vaporwave Landing" },
+              { title: "Digital Identity" },
+              { title: "S9 Vision" },
+            ].map((project, i) => {
+              const isPink = i % 2 === 0;
+              const neonClass = isPink 
+                ? "hover:border-pink-500 hover:shadow-[0_0_25px_rgba(236,72,153,0.3)]" 
+                : "hover:border-blue-400 hover:shadow-[0_0_25px_rgba(96,165,250,0.3)]";
 
-          return (
-            <motion.div
-              key={title}
-              whileHover={{ y: -5, scale: 1.01 }}
-              transition={{ duration: 0.3 }}
-              className={`group relative min-w-[280px] md:min-w-[320px] cursor-pointer rounded-[20px] border border-white/10 bg-white/[0.03] p-4 backdrop-blur-3xl transition-all duration-300 ${neonClass}`}
-            >
-              {/* Preview - Tamaño balanceado */}
-              <div
-                className={`relative mb-4 h-[160px] overflow-hidden rounded-[14px] ${
-                  isPink
-                    ? "bg-gradient-to-br from-pink-500/20 to-violet-500/5"
-                    : "bg-gradient-to-br from-blue-500/20 to-cyan-400/5"
-                }`}
-              >
-                <div
-                  className="absolute inset-0 opacity-10"
-                  style={{
-                    backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-                    backgroundSize: "15px 15px",
-                  }}
-                />
+              return (
                 <motion.div
-                  animate={{ x: ["-100%", "200%"] }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
-                  className={`absolute inset-y-0 w-16 rotate-12 blur-xl ${isPink ? "bg-pink-400/10" : "bg-blue-400/10"}`}
-                />
-              </div>
+                  key={`${setIndex}-${project.title}-${i}`}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  onClick={() => project.link && window.open(project.link, "_blank")}
+                  className={`group relative min-w-[300px] md:min-w-[360px] cursor-pointer rounded-[24px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-3xl transition-all duration-300 ${neonClass}`}
+                >
+                  <div
+                    className="relative mb-4 h-[220px] overflow-hidden rounded-[18px]"
+                    style={{
+                      backgroundImage: project.img ? `url(${project.img})` : undefined,
+                      backgroundColor: project.img ? 'transparent' : (isPink ? 'rgba(236, 72, 153, 0.1)' : 'rgba(96, 165, 250, 0.1)'),
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'top',
+                    }}
+                  >
+                    {project.link && (
+                      <div className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-sm">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white">Visit Real Site ↗</span>
+                      </div>
+                    )}
+                    
+                    {!project.img && (
+                      <div className={`absolute inset-0 z-0 bg-gradient-to-br ${isPink ? "from-pink-500/30 via-violet-500/10" : "from-blue-500/30 via-cyan-400/10"} opacity-30`}/>
+                    )}
 
-              {/* Texto */}
-              <h3 className="mb-1 text-lg font-black uppercase tracking-tight group-hover:text-white">
-                {title}
-              </h3>
-              <p className={`text-[10px] font-bold uppercase tracking-widest ${isPink ? "text-pink-400/60" : "text-blue-400/60"}`}>
-                {isEnglish ? "Concept / Art" : "Concepto / Arte"}
-              </p>
-            </motion.div>
-          );
-        })}
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      className={`absolute inset-0 z-0 rounded-full blur-[60px] ${isPink ? "bg-pink-400/20" : "bg-blue-400/20"}`}
+                    />
+                  </div>
+
+                  <h3 className="mb-2 text-[clamp(18px,1.5vw,22px)] font-black uppercase leading-tight tracking-tight group-hover:text-white transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className={`text-[11px] font-bold uppercase tracking-widest ${isPink ? "text-pink-400/80" : "text-blue-400/80"}`}>
+                    {isEnglish ? "Web Design / Concept" : "Diseño Web / Concepto"}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </React.Fragment>
+        ))}
       </div>
     </div>
   </motion.div>
