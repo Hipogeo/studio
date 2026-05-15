@@ -295,6 +295,7 @@ export default function Home() {
     variants={fadeSection}
     initial="initial"
     whileInView="whileInView"
+    onViewportLeave={() => setActiveService(null)}
     viewport={{ amount: 0.3 }}
     transition={{ duration: 1.2 }}
     className="relative z-10 mx-auto w-full max-w-5xl"
@@ -312,7 +313,6 @@ export default function Home() {
 
     {/* CONTAINER */}
     <div className="relative h-[320px]">
-
       {[
         {
           es: "Diseño Web",
@@ -342,9 +342,13 @@ export default function Home() {
           gradient: "from-blue-500/30 via-cyan-500/20 to-violet-500/20",
         },
       ].map((item, i) => {
-
         const isActive = activeService === i;
         const anotherIsActive = activeService !== null && activeService !== i;
+
+        // EFECTO NEÓN (Tailwind Classes)
+        const neonStyles = i % 2 === 0 
+          ? "hover:border-pink-500 hover:shadow-[0_0_25px_rgba(236,72,153,0.3)]" 
+          : "hover:border-blue-400 hover:shadow-[0_0_25px_rgba(96,165,250,0.3)]";
 
         return (
           <motion.div
@@ -357,7 +361,7 @@ export default function Home() {
               scale: anotherIsActive ? 0.92 : 1,
               filter: anotherIsActive ? "blur(12px)" : "blur(0px)",
             }}
-            className={`absolute top-0 cursor-pointer overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.06] backdrop-blur-2xl transition-all duration-500 ${
+            className={`absolute top-0 cursor-pointer overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.06] backdrop-blur-2xl transition-all duration-300 ${neonStyles} ${
               isActive ? "left-0 w-full p-8 md:p-10" : "w-[31.5%] p-6"
             }`}
             style={{
@@ -368,216 +372,92 @@ export default function Home() {
           >
             {/* BACKGROUND */}
             <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-40`} />
+            <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
 
-            {/* GRID */}
-            <div
-              className="absolute inset-0 opacity-[0.06]"
-              style={{
-                backgroundImage: "linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)",
-                backgroundSize: "22px 22px",
-              }}
-            />
-
-            {/* CONTENT */}
             <div className="relative z-10 h-full">
-
-              {/* CLOSED CARD */}
               {!isActive && (
-                <motion.div
-                  initial={false}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="flex h-full flex-col"
-                >
-                  <div className={`mb-5 text-3xl ${i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"}`}>
-                    ✦
-                  </div>
-                  <h3 className="mb-4 text-xl font-bold uppercase">
-                    {isEnglish ? item.en : item.es}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-white/75">
-                    {isEnglish ? item.tEn : item.tEs}
-                  </p>
+                <motion.div initial={false} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="flex h-full flex-col">
+                  <div className={`mb-5 text-3xl ${i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"}`}>✦</div>
+                  <h3 className="mb-4 text-xl font-bold uppercase">{isEnglish ? item.en : item.es}</h3>
+                  <p className="text-sm leading-relaxed text-white/75">{isEnglish ? item.tEn : item.tEs}</p>
                 </motion.div>
               )}
 
-              {/* OPEN CARD */}
               {isActive && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: 0.2 }}
-                  className="flex h-full flex-row items-center gap-10"
-                >
-
-                  {/* LEFT — TEXT */}
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, delay: 0.2 }} className="flex h-full flex-row items-center gap-10">
                   <div className="flex flex-1 flex-col justify-center">
                     <div className="mb-4 flex items-center gap-4">
-                      <div className={`text-4xl ${i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"}`}>
-                        ✦
-                      </div>
-                      <h3 className="text-[clamp(19px,2.5vw,37px)] font-black uppercase leading-none">
-                        {isEnglish ? item.en : item.es}
-                      </h3>
+                      <div className={`text-4xl ${i === 0 ? "text-pink-400" : i === 1 ? "text-violet-400" : "text-blue-400"}`}>✦</div>
+                      <h3 className="text-[clamp(19px,2.5vw,37px)] font-black uppercase leading-none">{isEnglish ? item.en : item.es}</h3>
                     </div>
-                    <p className="max-w-lg text-[clamp(13px,1.1vw,16px)] leading-relaxed text-white/75">
-                      {isEnglish ? item.contentEn : item.contentEs}
-                    </p>
+                    <p className="max-w-lg text-[clamp(13px,1.1vw,16px)] leading-relaxed text-white/75">{isEnglish ? item.contentEn : item.contentEs}</p>
                   </div>
 
-                  {/* RIGHT — GRAPHIC */}
+                  {/* GRAPHICS AREA */}
                   <div className="flex h-full w-[320px] shrink-0 items-center justify-center">
-
-                    {/* GRAPHIC 0 — Browser window */}
+                    {/* GRÁFICO 0 - WEB DESIGN */}
                     {i === 0 && (
                       <div className="relative h-[220px] w-[280px] overflow-hidden rounded-[18px] border border-white/15 bg-black/40 shadow-[0_0_40px_rgba(236,72,153,0.15)]">
-                        {/* Browser bar */}
                         <div className="flex items-center gap-2 border-b border-white/10 bg-white/5 px-3 py-2">
-                          <div className="h-2 w-2 rounded-full bg-pink-400/80" />
-                          <div className="h-2 w-2 rounded-full bg-violet-400/80" />
-                          <div className="h-2 w-2 rounded-full bg-blue-400/80" />
+                          <div className="h-2 w-2 rounded-full bg-pink-400/80" /><div className="h-2 w-2 rounded-full bg-violet-400/80" /><div className="h-2 w-2 rounded-full bg-blue-400/80" />
                           <div className="mx-2 flex-1 rounded-full bg-white/10 py-[3px] px-2">
-                            <motion.div
-                              animate={{ width: ["40%", "80%", "60%", "40%"] }}
-                              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                              className="h-[4px] rounded-full bg-pink-400/50"
-                            />
+                            <motion.div animate={{ width: ["40%", "80%", "40%"] }} transition={{ duration: 4, repeat: Infinity }} className="h-[4px] rounded-full bg-pink-400/50" />
                           </div>
                         </div>
-                        {/* Page content */}
                         <div className="p-4 space-y-2">
-                          {/* Hero block */}
-                          <motion.div
-                            animate={{ opacity: [0.4, 1, 0.4] }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                            className="h-14 rounded-[10px] bg-gradient-to-r from-pink-500/30 via-violet-500/20 to-blue-500/20"
-                          />
-                          {/* Text lines */}
+                          <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 3, repeat: Infinity }} className="h-14 rounded-[10px] bg-gradient-to-r from-pink-500/30 via-violet-500/20 to-blue-500/20" />
                           <motion.div animate={{ width: ["70%", "90%", "70%"] }} transition={{ duration: 3.5, repeat: Infinity }} className="h-2 rounded-full bg-white/20" />
-                          <motion.div animate={{ width: ["50%", "75%", "50%"] }} transition={{ duration: 4, repeat: Infinity }} className="h-2 rounded-full bg-white/10" />
-                          {/* Cards row */}
                           <div className="flex gap-2 pt-1">
-                            {[0, 1, 2].map((j) => (
-                              <motion.div
-                                key={j}
-                                animate={{ y: [0, -4, 0] }}
-                                transition={{ duration: 2, repeat: Infinity, delay: j * 0.4 }}
-                                className="flex-1 h-10 rounded-[8px] bg-white/[0.06] border border-white/10"
-                              />
-                            ))}
+                            {[0, 1, 2].map(j => <motion.div key={j} animate={{ y: [0, -4, 0] }} transition={{ duration: 2, repeat: Infinity, delay: j * 0.4 }} className="flex-1 h-10 rounded-[8px] bg-white/[0.06] border border-white/10" />)}
                           </div>
                         </div>
-                        {/* Scan line */}
-                        <motion.div
-                          animate={{ y: ["-100%", "400%"] }}
-                          transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                          className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-pink-400/60 to-transparent"
-                        />
+                        <motion.div animate={{ y: ["-100%", "400%"] }} transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }} className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-pink-400/60 to-transparent" />
                       </div>
                     )}
 
-                    {/* GRAPHIC 1 — Branding / logo refinement */}
+                    {/* GRÁFICO 1 - BRANDING (LOGO S9 CON DESTELLOS) */}
                     {i === 1 && (
-                      <div className="relative flex h-[220px] w-[280px] items-center justify-center">
-                        {/* Outer glow rings */}
+                      <div className="relative flex h-[300px] w-[300px] items-center justify-center">
                         {[0, 1, 2].map((j) => (
-                          <motion.div
-                            key={j}
-                            animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.35, 0.15] }}
-                            transition={{ duration: 2.5 + j * 0.7, repeat: Infinity, delay: j * 0.5 }}
-                            className="absolute rounded-full border border-violet-400/30"
-                            style={{ width: 80 + j * 44, height: 80 + j * 44 }}
-                          />
+                          <motion.div key={j} animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1] }} transition={{ duration: 3.5 + j, repeat: Infinity }} className="absolute rounded-full border border-violet-400/20" style={{ width: 110 + j * 55, height: 110 + j * 55 }} />
                         ))}
-                        {/* Center logo mark */}
-                        <motion.div
-                          animate={{ rotate: [0, 360] }}
-                          transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-                          className="absolute h-[72px] w-[72px] rounded-full"
-                          style={{
-                            background: "conic-gradient(from 0deg, #ec4899, #8b5cf6, #a855f7, #ec4899)",
-                            mask: "radial-gradient(circle, transparent 62%, black 63%)",
-                            WebkitMask: "radial-gradient(circle, transparent 62%, black 63%)",
-                          }}
-                        />
-                        <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-xl">
-                          <span className="text-2xl font-black bg-gradient-to-br from-pink-400 via-violet-400 to-blue-400 bg-clip-text text-transparent">S9</span>
+                        <div className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-[0_0_60px_rgba(167,139,250,0.3)]">
+                          <span className="text-4xl font-black bg-gradient-to-br from-white via-violet-200 to-pink-300 bg-clip-text text-transparent tracking-tighter">S9</span>
                         </div>
-                        {/* Left spark */}
-                        <motion.div
-                          animate={{ x: [-60, -80, -60], opacity: [0, 1, 0], scale: [0.6, 1.2, 0.6] }}
-                          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                          className="absolute left-6 text-pink-400 text-lg"
-                        >✦</motion.div>
-                        {/* Right spark */}
-                        <motion.div
-                          animate={{ x: [60, 80, 60], opacity: [0, 1, 0], scale: [0.6, 1.2, 0.6] }}
-                          transition={{ duration: 2.2, repeat: Infinity, delay: 0.6, ease: "easeInOut" }}
-                          className="absolute right-6 text-violet-400 text-lg"
-                        >✦</motion.div>
-                        {/* Top spark */}
-                        <motion.div
-                          animate={{ y: [-50, -68, -50], opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
-                          transition={{ duration: 2.8, repeat: Infinity, delay: 1.1, ease: "easeInOut" }}
-                          className="absolute top-4 text-blue-400 text-sm"
-                        >✦</motion.div>
-                        {/* Bottom spark */}
-                        <motion.div
-                          animate={{ y: [50, 68, 50], opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
-                          transition={{ duration: 2.8, repeat: Infinity, delay: 1.7, ease: "easeInOut" }}
-                          className="absolute bottom-4 text-fuchsia-400 text-sm"
-                        >✦</motion.div>
+                        {[
+                          { top: "15%", right: "20%", delay: 0.1, size: "text-2xl" },
+                          { bottom: "20%", left: "15%", delay: 0.8, size: "text-xl" },
+                          { top: "5%", left: "45%", delay: 1.5, size: "text-sm" },
+                          { bottom: "10%", right: "40%", delay: 2.2, size: "text-lg" },
+                          { top: "40%", left: "10%", delay: 0.4, size: "text-base" },
+                          { top: "35%", right: "5%", delay: 1.1, size: "text-sm" },
+                          { bottom: "25%", right: "15%", delay: 1.9, size: "text-xl" },
+                          { top: "60%", left: "5%", delay: 2.6, size: "text-lg" },
+                        ].map((spark, index) => (
+                          <motion.div key={index} animate={{ scale: [0, 1.2, 0], opacity: [0, 1, 0], rotate: [0, 90, 180] }} transition={{ duration: 2.5, repeat: Infinity, delay: spark.delay }} className={`absolute ${spark.size} text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]`} style={{ top: spark.top, bottom: spark.bottom, left: spark.left, right: spark.right }}>✦</motion.div>
+                        ))}
                       </div>
                     )}
 
-                    {/* GRAPHIC 2 — Creative direction / storyboard */}
+                    {/* GRÁFICO 2 - CREATIVE DIRECTION */}
                     {i === 2 && (
                       <div className="relative h-[220px] w-[280px]">
-                        {/* Storyboard frames */}
                         <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
-                          {[
-                            { color: "from-blue-500/40 to-cyan-500/20", delay: 0 },
-                            { color: "from-violet-500/40 to-blue-400/20", delay: 0.3 },
-                            { color: "from-cyan-500/40 to-violet-500/20", delay: 0.6 },
-                            { color: "from-blue-400/40 to-fuchsia-500/20", delay: 0.9 },
-                          ].map((frame, j) => (
-                            <motion.div
-                              key={j}
-                              animate={{ opacity: [0.5, 1, 0.5], scale: [0.97, 1, 0.97] }}
-                              transition={{ duration: 2.4, repeat: Infinity, delay: frame.delay }}
-                              className={`relative overflow-hidden rounded-[10px] border border-white/10 bg-gradient-to-br ${frame.color}`}
-                            >
-                              {/* Inner scan */}
-                              <motion.div
-                                animate={{ x: ["-100%", "200%"] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: frame.delay }}
-                                className="absolute inset-y-0 w-8 rotate-12 bg-white/10 blur-md"
-                              />
-                              {/* Composition lines */}
-                              <div className="absolute inset-0 flex flex-col justify-center gap-1 px-2">
-                                <div className="h-[2px] w-[60%] rounded-full bg-white/20" />
-                                <div className="h-[2px] w-[40%] rounded-full bg-white/10" />
-                              </div>
+                          {[0, 0.3, 0.6, 0.9].map((delay, j) => (
+                            <motion.div key={j} animate={{ opacity: [0.5, 1, 0.5], scale: [0.97, 1, 0.97] }} transition={{ duration: 2.4, repeat: Infinity, delay }} className="relative overflow-hidden rounded-[10px] border border-white/10 bg-white/5">
+                              <motion.div animate={{ x: ["-100%", "200%"] }} transition={{ duration: 2, repeat: Infinity, ease: "linear", delay }} className="absolute inset-y-0 w-8 rotate-12 bg-white/10 blur-md" />
                             </motion.div>
                           ))}
                         </div>
-                        {/* Center crosshair */}
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                          <motion.div
-                            animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.7, 0.3] }}
-                            transition={{ duration: 3, repeat: Infinity }}
-                            className="h-6 w-6 rounded-full border border-cyan-400/60"
-                          />
-                          <div className="absolute h-[1px] w-8 bg-cyan-400/40" />
-                          <div className="absolute h-8 w-[1px] bg-cyan-400/40" />
+                          <motion.div animate={{ scale: [0.8, 1.1, 0.8], opacity: [0.3, 0.7, 0.3] }} transition={{ duration: 3, repeat: Infinity }} className="h-6 w-6 rounded-full border border-cyan-400/60" />
+                          <div className="absolute h-[1px] w-8 bg-cyan-400/40" /><div className="absolute h-8 w-[1px] bg-cyan-400/40" />
                         </div>
                       </div>
                     )}
-
                   </div>
                 </motion.div>
               )}
-
             </div>
           </motion.div>
         );
@@ -664,59 +544,51 @@ export default function Home() {
         </motion.div>
       </section>
 
-{/* PORTFOLIO CAROUSEL - COMPACT VERSION */}
-<section className="relative flex min-h-screen snap-start items-center justify-center overflow-hidden px-5 py-10 md:py-16">
+{/* PORTFOLIO CAROUSEL - FIXED CENTERING */}
+<section className="relative flex h-screen snap-start flex-col justify-center overflow-hidden px-5">
+  {/* El h-screen con flex-col justify-center asegura que el contenido esté 
+      siempre en el centro exacto de la pantalla sin importar el tamaño */}
+  
   <motion.div
     variants={fadeSection}
     initial="initial"
     whileInView="whileInView"
     viewport={{ amount: 0.3 }}
     transition={{ duration: 1.2 }}
-    className="relative z-10 w-full max-w-[1400px]"
+    className="relative z-10 mx-auto w-full max-w-[1300px]"
   >
-    {/* Header más pequeño */}
-    <div className="mb-6 md:mb-10 text-center">
+    {/* Header - Márgenes controlados para no empujar hacia abajo */}
+    <div className="mb-8 text-center">
       <p className="mb-2 text-[clamp(9px,0.8vw,11px)] uppercase tracking-[0.4em] text-violet-300">
         Portfolio
       </p>
-
-      <h2 className="text-[clamp(32px,4vw,56px)] font-black uppercase">
+      <h2 className="text-[clamp(28px,3.5vw,48px)] font-black uppercase tracking-tighter">
         {isEnglish ? "Our works" : "Nuestros trabajos"}
       </h2>
     </div>
 
-    <div className="relative px-4 md:px-12">
-      {/* Botones */}
+    <div className="relative">
+      {/* Botones de navegación - Posicionados para no interferir con el scroll */}
       <button
-        onClick={() =>
-          document
-            .getElementById("portfolio-scroll")
-            ?.scrollBy({ left: -320, behavior: "smooth" })
-        }
-        className="absolute -left-2 md:left-0 top-1/2 z-30 -translate-y-1/2 rounded-full border border-pink-500/30 bg-black/40 p-3 md:p-4 text-xl text-pink-400 backdrop-blur-xl transition hover:scale-110 hover:border-pink-400"
+        onClick={() => document.getElementById("portfolio-scroll")?.scrollBy({ left: -300, behavior: "smooth" })}
+        className="absolute -left-4 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/10 bg-black/60 p-3 text-white/50 backdrop-blur-xl transition hover:scale-110 hover:border-pink-500 hover:text-pink-400 hidden lg:flex items-center justify-center"
       >
         ‹
       </button>
 
       <button
-        onClick={() =>
-          document
-            .getElementById("portfolio-scroll")
-            ?.scrollBy({ left: 320, behavior: "smooth" })
-        }
-        className="absolute -right-2 md:right-0 top-1/2 z-30 -translate-y-1/2 rounded-full border border-blue-500/30 bg-black/40 p-3 md:p-4 text-xl text-blue-400 backdrop-blur-xl transition hover:scale-110 hover:border-blue-400"
+        onClick={() => document.getElementById("portfolio-scroll")?.scrollBy({ left: 300, behavior: "smooth" })}
+        className="absolute -right-4 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/10 bg-black/60 p-3 text-white/50 backdrop-blur-xl transition hover:scale-110 hover:border-blue-500 hover:text-blue-400 hidden lg:flex items-center justify-center"
       >
         ›
       </button>
 
       <div
         id="portfolio-scroll"
-        className="flex gap-5 overflow-x-auto overflow-y-hidden scroll-smooth px-6 py-8 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-5 overflow-x-auto overflow-y-hidden scroll-smooth py-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{
-          maskImage:
-            "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+          maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+          WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
         }}
       >
         {[
@@ -726,52 +598,52 @@ export default function Home() {
           "Vaporwave Landing",
           "Future Commerce",
           "Digital Identity",
-        ].map((title, i) => (
-          <motion.div
-            key={title}
-            whileHover={{ y: -5, scale: 1.02 }}
-            transition={{ duration: 0.2 }}
-            className="group relative min-w-[clamp(260px,28vw,320px)] rounded-[24px] border border-white/10 bg-white/[0.04] p-5 backdrop-blur-2xl"
-          >
-            {/* Preview */}
-            <div
-              className={`relative mb-4 h-[clamp(140px,16vw,180px)] overflow-hidden rounded-[18px] ${
-                i % 2 === 0
-                  ? "bg-gradient-to-br from-pink-500/30 to-blue-500/20"
-                  : "bg-gradient-to-br from-violet-500/30 to-blue-400/20"
-              }`}
+          "S9 Vision",
+        ].map((title, i) => {
+          const isPink = i % 2 === 0;
+          const neonClass = isPink 
+            ? "hover:border-pink-500 hover:shadow-[0_0_15px_rgba(236,72,153,0.3)]" 
+            : "hover:border-blue-400 hover:shadow-[0_0_15px_rgba(96,165,250,0.3)]";
+
+          return (
+            <motion.div
+              key={title}
+              whileHover={{ y: -5, scale: 1.01 }}
+              transition={{ duration: 0.3 }}
+              className={`group relative min-w-[280px] md:min-w-[320px] cursor-pointer rounded-[20px] border border-white/10 bg-white/[0.03] p-4 backdrop-blur-3xl transition-all duration-300 ${neonClass}`}
             >
+              {/* Preview - Tamaño balanceado */}
               <div
-                className="absolute inset-0 opacity-10"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
-                  backgroundSize: "15px 15px",
-                }}
-              />
+                className={`relative mb-4 h-[160px] overflow-hidden rounded-[14px] ${
+                  isPink
+                    ? "bg-gradient-to-br from-pink-500/20 to-violet-500/5"
+                    : "bg-gradient-to-br from-blue-500/20 to-cyan-400/5"
+                }`}
+              >
+                <div
+                  className="absolute inset-0 opacity-10"
+                  style={{
+                    backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
+                    backgroundSize: "15px 15px",
+                  }}
+                />
+                <motion.div
+                  animate={{ x: ["-100%", "200%"] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+                  className={`absolute inset-y-0 w-16 rotate-12 blur-xl ${isPink ? "bg-pink-400/10" : "bg-blue-400/10"}`}
+                />
+              </div>
 
-              <motion.div
-                animate={{ x: ["-100%", "200%"] }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                className="absolute inset-y-0 w-16 rotate-12 bg-white/5 blur-xl"
-              />
-            </div>
-
-            <h3 className="mb-2 text-[clamp(18px,1.5vw,22px)] font-black uppercase leading-tight tracking-tight">
-              {title}
-            </h3>
-
-            <p className="text-[clamp(11px,0.9vw,13px)] leading-relaxed text-white/50">
-              {isEnglish
-                ? "Web design / branding"
-                : "Diseño web / branding"}
-            </p>
-          </motion.div>
-        ))}
+              {/* Texto */}
+              <h3 className="mb-1 text-lg font-black uppercase tracking-tight group-hover:text-white">
+                {title}
+              </h3>
+              <p className={`text-[10px] font-bold uppercase tracking-widest ${isPink ? "text-pink-400/60" : "text-blue-400/60"}`}>
+                {isEnglish ? "Concept / Art" : "Concepto / Arte"}
+              </p>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   </motion.div>
